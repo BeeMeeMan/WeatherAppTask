@@ -1,79 +1,86 @@
-////
-////  InfoContainer.swift
-////  WeatherAppTask
-////
-////  Created by Yevhenii Korsun on 14.09.2022.
-////
 //
-//import UIKit
+//  InfoContainer.swift
+//  WeatherAppTask
 //
-//enum InfoContainer {
-//    case temperature
-//    case humidity
-//    case wind
+//  Created by Yevhenii Korsun on 14.09.2022.
 //
-//    var iconName: String {
-//        switch self {
-//        case .temperature: return "ic_temp"
-//        case .humidity: return "ic_humidity"
-//        case .wind: return "ic_wind"
-//        }
-//    }
-//}
-//
-//protocol InputContainerViewDelegate: AnyObject {
-//    func detectInput()
-//}
-//
-//class InputContainerView: UIView {
-//    
-//    // MARK: - Properties
-//    
-//    let textField = UITextField()
-//    var type: InputContainerType
-//    weak var delegate: InputContainerViewDelegate?
-//    
-//    // MARK: - Lifecycle
-//    
-//    init(type: InputContainerType) {
-//        self.type = type
-//        super.init(frame: .zero)
-//        
-//        setHeight(50)
-//        
-//        let imageView = UIImageView()
-//        imageView.image = UIImage(systemName: type.imageName)
-//        imageView.tintColor = .white.withAlphaComponent(0.83)
-//        addSubview(imageView)
-//        imageView.center(by: .YAxis, inView: self)
-//        imageView.anchor(left: leftAnchor, paddingLeft: 8)
-//        imageView.setDimensions(height: 24, width: 28)
-//        
-//        let lineView = UIView()
-//        lineView.backgroundColor = .white.withAlphaComponent(0.83)
-//        lineView.setHeight(0.75)
-//        addSubview(lineView)
-//        lineView.anchor(bottom: bottomAnchor, left: leftAnchor, right: rightAnchor, paddingBottom: 4, paddingLeft: 4, paddingRight: 4)
-//        
-//        textField.borderStyle = .none
-//        textField.font = UIFont.systemFont(ofSize: 16)
-//        textField.textColor = .white.withAlphaComponent(0.83)
-//        textField.keyboardAppearance = .dark
-//        textField.attributedPlaceholder = NSAttributedString(string: type.placeholder, attributes: [.foregroundColor: UIColor.white.withAlphaComponent(0.83)])
-//        addSubview(textField)
-//        textField.center(by: .YAxis, inView: self)
-//        textField.anchor(left: imageView.rightAnchor, right: rightAnchor, paddingLeft: 8, paddingRight: 8)
-//        textField.isSecureTextEntry = type.isSecure
-//        textField.addTarget(self, action: #selector(detectInput), for: .editingChanged)
-//    }
-//    
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//    
-//    // MARK: - Selectors
-//    
-//    @objc func detectInput() {
-//        delegate?.detectInput()
-//    }
-//}
+
+import UIKit
+
+enum InfoContainerType {
+    case temperature
+    case humidity
+    case wind
+    
+    var iconName: String {
+        switch self {
+        case .temperature: return "ic_temp"
+        case .humidity: return "ic_humidity"
+        case .wind: return "ic_wind"
+        }
+    }
+}
+
+class InputContainerView: UIView {
+    
+    // MARK: - Properties
+    
+    private let weatherVM: WeatherViewModel
+    private let infoContainerType: InfoContainerType
+    
+    private lazy var iconImageView: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: infoContainerType.iconName)
+        image.tintColor = .CustomColor.white
+        image.setDimensions(height: 24, width: 24)
+        
+        return image
+    }()
+    
+    private lazy var windImageView: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: weatherVM.windDirection.iconName)
+        image.tintColor = .CustomColor.white
+        image.setDimensions(height: 24, width: 24)
+        
+        return image
+    }()
+    
+    private lazy var label: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = .CustomColor.white
+        label.textAlignment = .left
+        label.text = getLabelText()
+        
+        return label
+    }()
+    
+    // MARK: - Lifecycle
+    
+    init(weatherVM: WeatherViewModel, containerType: InfoContainerType) {
+        self.weatherVM = weatherVM
+        self.infoContainerType = containerType
+        super.init(frame: .zero)
+        
+        let stack = UIStackView(arrangedSubviews: [iconImageView, label,windImageView])
+        stack.axis = .horizontal
+        stack.spacing = 4
+        addSubview(stack)
+        stack.pinTo(view: self)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Helper functions
+    
+    func getLabelText() -> String {
+        switch infoContainerType {
+        case .temperature: return "\(weatherVM.tempMax.asString())/\(weatherVM.tempMax.asString())"
+        case .humidity: return weatherVM.humidity
+        case .wind: return weatherVM.windSpeed
+        }
+    }
+}

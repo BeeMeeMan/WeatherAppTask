@@ -30,12 +30,12 @@ extension WeatherViewModel {
         weather.main.tempMax
     }
 
-    var humidity: Int {
-        weather.main.humidity
+    var humidity: String {
+        String("\(weather.main.humidity)%")
     }
 
-    var windSpeed: Double {
-        weather.wind.speed
+    var windSpeed: String {
+        String("\(weather.wind.speed) м/cек")
     }
     
     var windDegree: Int {
@@ -63,17 +63,5 @@ extension WeatherViewModel {
         let date = Date()
         print(utcDateFormatter.string(from: date))
         return weather.dt.toDate()
-    }
-}
-
-// MARK: - TemperatureDegrees
-
-fileprivate extension TemperatureDegrees {
-    func tempInCelsium() -> Self {
-        return (self - 273.15)
-    }
-
-    func tempInFarenheit() -> Self {
-        return (1.8 * (self - 273) + 32)
     }
 }

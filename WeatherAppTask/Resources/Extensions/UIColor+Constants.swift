@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIColor {
-    enum Custom {
+    enum CustomColor {
         static let lightBlue = UIColor(named: "customLightBlue") ?? UIColor.white
         static let darkBlue = UIColor(named: "customDarkBlue") ?? UIColor.white
         static let black = UIColor(named: "customBlack") ?? UIColor.white

@@ -20,7 +20,7 @@ enum WeatherType: String, CaseIterable {
     case clearNight = "01n"
     case noData = ""
     
-   private var iconName: String {
+    var iconName: String {
        switch self {
        case .thunderstormDay: return "ic_white_day_thunder"
        case .rainDay: return "ic_white_day_rain"

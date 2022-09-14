@@ -9,9 +9,9 @@ import UIKit
 
 final class AppApperance {
     static func setupDefault() {
-        let navBarBackgroundColor: UIColor = UIColor.Custom.darkBlue
-        let navBarTitleColor: UIColor = UIColor.Custom.white
-        let navBarIconColor: UIColor = UIColor.Custom.white
+        let navBarBackgroundColor: UIColor = UIColor.CustomColor.darkBlue
+        let navBarTitleColor: UIColor = UIColor.CustomColor.white
+        let navBarIconColor: UIColor = UIColor.CustomColor.white
         
         let appearence = UINavigationBarAppearance()
         appearence.configureWithOpaqueBackground()
