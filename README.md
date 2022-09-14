@@ -1,0 +1,1 @@
+Weather App test task.
