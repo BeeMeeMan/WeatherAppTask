@@ -47,13 +47,28 @@ extension WeatherViewModel {
     }
 
     var weatherType: WeatherType {
-        WeatherType.getType(by:  weather.weather.first?.main ?? "")
+        WeatherType.getType(by: weather.weather.first?.icon ?? "")
+    }
+    
+    var date: String {
+        let utcDateFormatter = DateFormatter()
+        utcDateFormatter.dateStyle = .medium
+        utcDateFormatter.timeStyle = .medium
+
+        // The default timeZone on DateFormatter is the device’s
+        // local time zone. Set timeZone to UTC to get UTC time.
+        utcDateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+
+        // Printing a Date
+        let date = Date()
+        print(utcDateFormatter.string(from: date))
+        return weather.dt.toDate()
     }
 }
 
 // MARK: - TemperatureDegrees
 
-extension TemperatureDegrees {
+fileprivate extension TemperatureDegrees {
     func tempInCelsium() -> Self {
         return (self - 273.15)
     }

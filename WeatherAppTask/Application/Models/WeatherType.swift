@@ -7,71 +7,48 @@
 
 import Foundation
 
-enum WeatherType: String, CustomStringConvertible {
-    case clearSky
-    case fewClouds
-    case scatteredClouds
-    case brokenClouds
-    case showerRain
-    case rain
-    case thunderstorm
-    case snow
-    case mist
-    case noInfo
+enum WeatherType: String, CaseIterable {
+    case thunderstormDay = "11d"
+    case rainDay = "09d10d"
+    case snowDay = "13d"
+    case cloudsDay = "02d03d04d50d"
+    case clearDay = "01d"
+    case thunderstormNight = "11n"
+    case rainNight = "09n10n"
+    case snowNight = "13n"
+    case cloudsNight = "02n03n04n50n"
+    case clearNight = "01n"
+    case noData = ""
     
-    var iconName: String {
-        switch self {
-        case .clearSky: return "sun.max"
-        case .fewClouds: return "cloud.sun"
-        case .scatteredClouds: return "cloud"
-        case .brokenClouds: return "cloud.fill"
-        case .showerRain: return "cloud.rain"
-        case .rain: return "cloud.sun.rain"
-        case .thunderstorm: return "cloud.bolt"
-        case .snow: return "cloud.snow"
-        case .mist: return "cloud.fog"
-        case .noInfo: return "questionmark.circle"
-        }
+   private var iconName: String {
+       switch self {
+       case .thunderstormDay: return "ic_white_day_thunder"
+       case .rainDay: return "ic_white_day_rain"
+       case .snowDay: return "ic_white_day_shower"
+       case .cloudsDay: return "ic_white_day_cloudy"
+       case .clearDay: return "ic_white_day_bright"
+       case .thunderstormNight: return "ic_white_night_thunder"
+       case .rainNight: return "ic_white_night_rain"
+       case .snowNight: return "ic_white_night_shower"
+       case .cloudsNight: return "ic_white_night_cloudy"
+       case .clearNight: return "ic_white_night_bright"
+       case .noData: return ""
+       }
     }
     
     var description: String {
-        return self.rawValue.addSpacesRemoveUppercase()
+        return String(describing: self)
     }
     
-    static func getType(by description: String) -> Self {
-        return Self.init(rawValue: description.removeSpacesAddUppercase()) ?? .noInfo
-    }
-}
-
-extension String {
-    func addSpacesRemoveUppercase() -> Self {
-        var result = ""
-        self.forEach { char in
-            if char.isUppercase {
-                result.append(contentsOf: " \(char.lowercased())")
-            } else {
-                result.append(char)
+    static func getType(by iconName: String) -> Self {
+        var answer: Self = .noData
+        
+        self.allCases.forEach { weatherType in
+            if weatherType.rawValue.contains(iconName) {
+                answer = weatherType
             }
         }
         
-        return result
-    }
-    
-    func removeSpacesAddUppercase() -> Self {
-        var result = ""
-        var wasSpace = false
-        
-        self.forEach { char in
-            if char.isWhitespace {
-                wasSpace = true
-            } else if wasSpace {
-                result.append(char.uppercased())
-                wasSpace = false
-            } else {
-                result.append(char.lowercased())
-            }
-        }
-        
-        return result
+        return answer
     }
 }

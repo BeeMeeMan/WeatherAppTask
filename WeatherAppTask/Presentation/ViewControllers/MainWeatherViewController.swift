@@ -23,7 +23,7 @@ class MainWeatherViewController: UITableViewController {
                 return try? JSONDecoder().decode(WeatherListResponce.self, from: data)
             }
             let text = "clear sky"
-            print(text.removeSpacesAddUppercase())
+           
             NetworkService().load(resource: resource) { result in
                 if let weatherResource = result {
                     print(result)

@@ -20,14 +20,14 @@ enum WindDirection: Int, CaseIterable {
     
     var iconName: String {
         switch self {
-        case .north: return "arrow.up"
-        case .northeast: return "arrow.up.right"
-        case .east: return "arrow.right"
-        case .southeast: return "arrow.down"
-        case .south: return "arrow.down"
-        case .southwest: return "arrow.down.left"
-        case .west: return "arrow.left"
-        case .northwest: return "arrow.up.left"
+        case .north: return "icon_wind_n"
+        case .northeast: return "icon_wind_ne"
+        case .east: return "icon_wind_e"
+        case .southeast: return "icon_wind_se"
+        case .south: return "icon_wind_s"
+        case .southwest: return "icon_wind_ws"
+        case .west: return "icon_wind_w"
+        case .northwest: return "icon_wind_wn"
         case .noWind: return ""
         }
     }

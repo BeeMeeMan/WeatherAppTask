@@ -54,7 +54,7 @@ struct MainClass: Codable {
 // MARK: - Weather
 
 struct Weather: Codable {
-    let main: String
+    let icon: String
 }
 
 // MARK: - Wind
