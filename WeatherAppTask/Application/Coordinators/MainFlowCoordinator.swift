@@ -12,6 +12,7 @@ class MainFlowCoordinator: Coordinator {
     
     private lazy var profileViewController: MainWeatherViewController = {
         let vc = MainWeatherViewController()
+        vc.title = "weather"
         return vc
     }()
 

@@ -15,6 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: scene)
         appCoordinator = AppFlowCoordinator(window: window)
         appCoordinator?.start()
+        AppApperance.setupDefault()
         window.makeKeyAndVisible()
     }
 

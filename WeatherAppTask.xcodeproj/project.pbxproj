@@ -14,6 +14,8 @@
 		8A6B1C0E28D2289D001A685B /* MainWeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B1C0D28D2289D001A685B /* MainWeatherViewController.swift */; };
 		8A6B1C1628D22A1C001A685B /* AppFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B1C1528D22A1C001A685B /* AppFlowCoordinator.swift */; };
 		8A6B1C1828D22A33001A685B /* MainFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B1C1728D22A33001A685B /* MainFlowCoordinator.swift */; };
+		8A6B1C2028D22B8F001A685B /* AppAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B1C1F28D22B8F001A685B /* AppAppearance.swift */; };
+		8A6B1C2228D22BB3001A685B /* UIColor+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B1C2128D22BB3001A685B /* UIColor+Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		8A6B1C0D28D2289D001A685B /* MainWeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWeatherViewController.swift; sourceTree = "<group>"; };
 		8A6B1C1528D22A1C001A685B /* AppFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowCoordinator.swift; sourceTree = "<group>"; };
 		8A6B1C1728D22A33001A685B /* MainFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFlowCoordinator.swift; sourceTree = "<group>"; };
+		8A6B1C1F28D22B8F001A685B /* AppAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAppearance.swift; sourceTree = "<group>"; };
+		8A6B1C2128D22BB3001A685B /* UIColor+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Constants.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,7 @@
 				8A6B1C1028D22944001A685B /* Coordinators */,
 				8A6B1BF728D2222A001A685B /* AppDelegate.swift */,
 				8A6B1BF928D2222A001A685B /* SceneDelegate.swift */,
+				8A6B1C1F28D22B8F001A685B /* AppAppearance.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -114,6 +119,7 @@
 		8A6B1C1428D2299B001A685B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				8A6B1C2128D22BB3001A685B /* UIColor+Constants.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -191,6 +197,8 @@
 				8A6B1C1628D22A1C001A685B /* AppFlowCoordinator.swift in Sources */,
 				8A6B1BF828D2222A001A685B /* AppDelegate.swift in Sources */,
 				8A6B1BFA28D2222A001A685B /* SceneDelegate.swift in Sources */,
+				8A6B1C2028D22B8F001A685B /* AppAppearance.swift in Sources */,
+				8A6B1C2228D22BB3001A685B /* UIColor+Constants.swift in Sources */,
 				8A6B1C1828D22A33001A685B /* MainFlowCoordinator.swift in Sources */,
 				8A6B1C0E28D2289D001A685B /* MainWeatherViewController.swift in Sources */,
 			);
