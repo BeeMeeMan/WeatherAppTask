@@ -7,6 +7,8 @@
 
 import Foundation
 
+typealias TemperatureDegrees = Double
+
 class WeatherViewModel {
     private let weather: WeatherResponce
     
@@ -20,19 +22,43 @@ extension WeatherViewModel {
         weather.name
     }
     
-    var temp: Double {
+    var temp: TemperatureDegrees {
         weather.main.temp
+    }
+    
+    var tempMin: TemperatureDegrees {
+        weather.main.tempMin
+    }
+    
+    var tempMax: TemperatureDegrees {
+        weather.main.tempMax
     }
     
     var humidity: Int {
         weather.main.humidity
     }
     
-    var tempInCelsium: Double {
-        return (temp - 273.15)
+    var windSpeed: Double {
+        weather.wind.speed
     }
     
-    var tempInFarenheit: Double {
-        return (1.8 * (temp - 273) + 32)
+    var windDegree: Int {
+        weather.wind.deg
+    }
+    
+    var windDirection: WindDirection {
+        WindDirection.getType(by: windDegree)
+    }
+}
+
+// MARK: - TemperatureDegrees
+
+extension TemperatureDegrees {
+    func tempInCelsium() -> Self {
+        return (self - 273.15)
+    }
+    
+    func tempInFarenheit() -> Self {
+        return (1.8 * (self - 273) + 32)
     }
 }
