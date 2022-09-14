@@ -6,16 +6,6 @@
 //
 
 import Foundation
-//https://api.openweathermap.org/data/2.5/weather?q=Kharkiv&appid=935816ca51975865a24c12784fe691a1
-private enum APIKeys {
-    static let weatherAPIKey = "935816ca51975865a24c12784fe691a1"
-}
-
-enum Urls {
-    static func urlForWeatherByCity(city: String) -> URL {
-        return  URL(string: "https://api.openweathermap.org/data/2.5/weather?q=\(city.escaped())&appid=\(APIKeys.weatherAPIKey)")!
-    }
-}
 
 //enum NetworkError: Error {
 //    case decodingError

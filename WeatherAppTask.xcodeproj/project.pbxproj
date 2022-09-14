@@ -26,6 +26,8 @@
 		8A6B1C4628D241A4001A685B /* WeatherType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B1C4528D241A4001A685B /* WeatherType.swift */; };
 		8A6B1C4828D24916001A685B /* WeatherTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B1C4728D24916001A685B /* WeatherTypeTests.swift */; };
 		8A6B1C4928D24978001A685B /* WeatherType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B1C4528D241A4001A685B /* WeatherType.swift */; };
+		8A6B1C4B28D24EB7001A685B /* WeatherListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B1C4A28D24EB7001A685B /* WeatherListViewModel.swift */; };
+		8A6B1C4D28D256BC001A685B /* NetworkConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B1C4C28D256BC001A685B /* NetworkConfig.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,8 @@
 		8A6B1C4128D23CED001A685B /* WindDirectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindDirectionTests.swift; sourceTree = "<group>"; };
 		8A6B1C4528D241A4001A685B /* WeatherType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherType.swift; sourceTree = "<group>"; };
 		8A6B1C4728D24916001A685B /* WeatherTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTypeTests.swift; sourceTree = "<group>"; };
+		8A6B1C4A28D24EB7001A685B /* WeatherListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherListViewModel.swift; sourceTree = "<group>"; };
+		8A6B1C4C28D256BC001A685B /* NetworkConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfig.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +173,7 @@
 		8A6B1C2328D22E3A001A685B /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				8A6B1C4C28D256BC001A685B /* NetworkConfig.swift */,
 				8A6B1C2428D22E59001A685B /* NetworkService.swift */,
 			);
 			path = Services;
@@ -188,6 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				8A6B1C2D28D2310E001A685B /* WeatherViewModel.swift */,
+				8A6B1C4A28D24EB7001A685B /* WeatherListViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -312,6 +318,7 @@
 				8A6B1C2B28D22F7D001A685B /* String+Extensions.swift in Sources */,
 				8A6B1C1628D22A1C001A685B /* AppFlowCoordinator.swift in Sources */,
 				8A6B1BF828D2222A001A685B /* AppDelegate.swift in Sources */,
+				8A6B1C4B28D24EB7001A685B /* WeatherListViewModel.swift in Sources */,
 				8A6B1C2E28D2310E001A685B /* WeatherViewModel.swift in Sources */,
 				8A6B1C2528D22E59001A685B /* NetworkService.swift in Sources */,
 				8A6B1C3128D2375A001A685B /* WindDirection.swift in Sources */,
@@ -319,6 +326,7 @@
 				8A6B1C2028D22B8F001A685B /* AppAppearance.swift in Sources */,
 				8A6B1C2228D22BB3001A685B /* UIColor+Constants.swift in Sources */,
 				8A6B1C2828D22EA3001A685B /* WeatherResponce.swift in Sources */,
+				8A6B1C4D28D256BC001A685B /* NetworkConfig.swift in Sources */,
 				8A6B1C4628D241A4001A685B /* WeatherType.swift in Sources */,
 				8A6B1C1828D22A33001A685B /* MainFlowCoordinator.swift in Sources */,
 				8A6B1C0E28D2289D001A685B /* MainWeatherViewController.swift in Sources */,

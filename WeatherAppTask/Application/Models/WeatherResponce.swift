@@ -10,10 +10,27 @@ import Foundation
 // MARK: - Welcome
 
 struct WeatherResponce: Codable {
+    let list: [List]
+    let city: City
+}
+
+// MARK: - City
+
+struct City: Codable {
     let name: String
+}
+
+// MARK: - List
+struct List: Codable {
+    let dt: Int
     let weather: [Weather]
-    let main: Main
     let wind: Wind
+    let dtTxt: String
+
+    enum CodingKeys: String, CodingKey {
+        case dt, weather, wind
+        case dtTxt = "dt_txt"
+    }
 }
 
 // MARK: - Main
