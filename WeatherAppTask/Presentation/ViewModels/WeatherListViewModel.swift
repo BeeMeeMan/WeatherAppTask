@@ -13,4 +13,22 @@ class WeatherListViewModel {
     init(weatherList: [List]) {
         self.weatherList = weatherList.map(WeatherViewModel.init)
     }
+    
+    var dayWeatherList: [WeatherViewModel] {
+        return getDayWeatherFromThreeHourInterval(weatherArray: weatherList)
+    }
+    
+    private func getDayWeatherFromThreeHourInterval(weatherArray: [WeatherViewModel]) ->  [WeatherViewModel] {
+        var index = 1
+        var answer = [WeatherViewModel]()
+        
+        for item in weatherArray {
+          if index % 8 == 0 || index == 1 {
+              answer.append(item)
+          }
+          index += 1
+        }
+        
+        return answer
+    }
 }

@@ -145,8 +145,9 @@
 		8A6B1C1228D22982001A685B /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				8A6B1C4F28D261A7001A685B /* ViewControllers */,
+				8A6B1C4E28D261A2001A685B /* Views */,
 				8A6B1C2C28D23106001A685B /* ViewModels */,
-				8A6B1C0D28D2289D001A685B /* MainWeatherViewController.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -213,6 +214,21 @@
 				8A6B1C4728D24916001A685B /* WeatherTypeTests.swift */,
 			);
 			path = ModelsTests;
+			sourceTree = "<group>";
+		};
+		8A6B1C4E28D261A2001A685B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8A6B1C4F28D261A7001A685B /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				8A6B1C0D28D2289D001A685B /* MainWeatherViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
