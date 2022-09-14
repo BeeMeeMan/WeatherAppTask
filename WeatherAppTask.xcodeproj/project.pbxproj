@@ -24,6 +24,8 @@
 		8A6B1C4228D23CED001A685B /* WindDirectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B1C4128D23CED001A685B /* WindDirectionTests.swift */; };
 		8A6B1C4328D23DB2001A685B /* WindDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B1C3028D2375A001A685B /* WindDirection.swift */; };
 		8A6B1C4628D241A4001A685B /* WeatherType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B1C4528D241A4001A685B /* WeatherType.swift */; };
+		8A6B1C4828D24916001A685B /* WeatherTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B1C4728D24916001A685B /* WeatherTypeTests.swift */; };
+		8A6B1C4928D24978001A685B /* WeatherType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B1C4528D241A4001A685B /* WeatherType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +58,7 @@
 		8A6B1C3828D23CCF001A685B /* WeatherAppTaskTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherAppTaskTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A6B1C4128D23CED001A685B /* WindDirectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindDirectionTests.swift; sourceTree = "<group>"; };
 		8A6B1C4528D241A4001A685B /* WeatherType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherType.swift; sourceTree = "<group>"; };
+		8A6B1C4728D24916001A685B /* WeatherTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTypeTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				8A6B1C4128D23CED001A685B /* WindDirectionTests.swift */,
+				8A6B1C4728D24916001A685B /* WeatherTypeTests.swift */,
 			);
 			path = ModelsTests;
 			sourceTree = "<group>";
@@ -327,6 +331,8 @@
 			files = (
 				8A6B1C4328D23DB2001A685B /* WindDirection.swift in Sources */,
 				8A6B1C4228D23CED001A685B /* WindDirectionTests.swift in Sources */,
+				8A6B1C4928D24978001A685B /* WeatherType.swift in Sources */,
+				8A6B1C4828D24916001A685B /* WeatherTypeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

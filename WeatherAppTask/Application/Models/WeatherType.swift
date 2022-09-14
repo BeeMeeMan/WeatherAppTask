@@ -43,7 +43,7 @@ enum WeatherType: String, CustomStringConvertible {
     }
 }
 
-fileprivate extension String {
+extension String {
     func addSpacesRemoveUppercase() -> Self {
         var result = ""
         self.forEach { char in
@@ -66,8 +66,9 @@ fileprivate extension String {
                 wasSpace = true
             } else if wasSpace {
                 result.append(char.uppercased())
+                wasSpace = false
             } else {
-                result.append(char)
+                result.append(char.lowercased())
             }
         }
         
