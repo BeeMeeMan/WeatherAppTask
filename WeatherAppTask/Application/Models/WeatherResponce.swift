@@ -7,9 +7,9 @@
 
 import Foundation
 
-// MARK: - Welcome
+// MARK: - WeatherListResponce
 
-struct WeatherResponce: Codable {
+struct WeatherListResponce: Codable {
     let list: [List]
     let city: City
 }
@@ -21,21 +21,24 @@ struct City: Codable {
 }
 
 // MARK: - List
+
 struct List: Codable {
     let dt: Int
+    let main: MainClass
     let weather: [Weather]
     let wind: Wind
+    let visibility: Int
     let dtTxt: String
 
     enum CodingKeys: String, CodingKey {
-        case dt, weather, wind
+        case dt, main, weather, wind, visibility
         case dtTxt = "dt_txt"
     }
 }
 
 // MARK: - Main
 
-struct Main: Codable {
+struct MainClass: Codable {
     let temp, feelsLike, tempMin, tempMax: Double
     let humidity: Int
     
@@ -52,7 +55,6 @@ struct Main: Codable {
 
 struct Weather: Codable {
     let main: String
-    let icon: String
 }
 
 // MARK: - Wind

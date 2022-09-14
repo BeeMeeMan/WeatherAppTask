@@ -18,9 +18,9 @@ class MainWeatherViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        if let weatherURL = NetworkConfig.Urls.urlForWeather(by: "Kharkiv") {
-            let resource = Resource<WeatherResponce>(url: weatherURL) { data in
-                return try? JSONDecoder().decode(WeatherResponce.self, from: data)
+        if let weatherURL = NetworkConfig.Urls.urlForWeatherList(by: "Kharkiv") {
+            let resource = Resource<WeatherListResponce>(url: weatherURL) { data in
+                return try? JSONDecoder().decode(WeatherListResponce.self, from: data)
             }
             let text = "clear sky"
             print(text.removeSpacesAddUppercase())

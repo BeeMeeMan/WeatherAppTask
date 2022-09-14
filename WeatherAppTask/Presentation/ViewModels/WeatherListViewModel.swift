@@ -8,9 +8,9 @@
 import Foundation
 
 class WeatherListViewModel {
-    private let weatherList: List
+    private let weatherList: [WeatherViewModel]
     
-    init(weatherList: List) {
-        self.weatherList = weatherList
+    init(weatherList: [List]) {
+        self.weatherList = weatherList.map(WeatherViewModel.init)
     }
 }
