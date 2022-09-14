@@ -12,6 +12,8 @@
 		8A6B1C0128D2222B001A685B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A6B1C0028D2222B001A685B /* Assets.xcassets */; };
 		8A6B1C0428D2222B001A685B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A6B1C0228D2222B001A685B /* LaunchScreen.storyboard */; };
 		8A6B1C0E28D2289D001A685B /* MainWeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B1C0D28D2289D001A685B /* MainWeatherViewController.swift */; };
+		8A6B1C1628D22A1C001A685B /* AppFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B1C1528D22A1C001A685B /* AppFlowCoordinator.swift */; };
+		8A6B1C1828D22A33001A685B /* MainFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B1C1728D22A33001A685B /* MainFlowCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		8A6B1C0328D2222B001A685B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8A6B1C0528D2222B001A685B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A6B1C0D28D2289D001A685B /* MainWeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWeatherViewController.swift; sourceTree = "<group>"; };
+		8A6B1C1528D22A1C001A685B /* AppFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowCoordinator.swift; sourceTree = "<group>"; };
+		8A6B1C1728D22A33001A685B /* MainFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFlowCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +79,8 @@
 		8A6B1C1028D22944001A685B /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				8A6B1C1528D22A1C001A685B /* AppFlowCoordinator.swift */,
+				8A6B1C1728D22A33001A685B /* MainFlowCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -182,8 +188,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A6B1C1628D22A1C001A685B /* AppFlowCoordinator.swift in Sources */,
 				8A6B1BF828D2222A001A685B /* AppDelegate.swift in Sources */,
 				8A6B1BFA28D2222A001A685B /* SceneDelegate.swift in Sources */,
+				8A6B1C1828D22A33001A685B /* MainFlowCoordinator.swift in Sources */,
 				8A6B1C0E28D2289D001A685B /* MainWeatherViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
