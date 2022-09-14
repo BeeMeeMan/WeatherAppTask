@@ -49,6 +49,10 @@ extension WeatherViewModel {
     var windDirection: WindDirection {
         WindDirection.getType(by: windDegree)
     }
+    
+    var weatherType: WeatherType {
+        WeatherType.getType(by: weather.weather.first?.main ?? "")
+    }
 }
 
 // MARK: - TemperatureDegrees

@@ -11,6 +11,7 @@ import Foundation
 
 struct WeatherResponce: Codable {
     let name: String
+    let weather: [Weather]
     let main: Main
     let wind: Wind
 }
@@ -28,6 +29,13 @@ struct Main: Codable {
         case tempMax = "temp_max"
         case humidity
     }
+}
+
+// MARK: - Weather
+
+struct Weather: Codable {
+    let main: String
+    let icon: String
 }
 
 // MARK: - Wind
