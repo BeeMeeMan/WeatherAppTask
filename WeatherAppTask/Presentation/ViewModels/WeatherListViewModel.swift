@@ -26,6 +26,10 @@ extension WeatherListViewModel {
     var cityName: String {
         city
     }
+    
+    var list: [WeatherViewModel] {
+       return weatherList
+    }
 
     var isNoData: Bool {
         return weatherList.count == 0

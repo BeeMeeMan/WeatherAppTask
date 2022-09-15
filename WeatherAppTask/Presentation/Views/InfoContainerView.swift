@@ -25,39 +25,14 @@ class InfoContainerView: UIView {
     
     // MARK: - Properties
     
-    private let iconWidth: CGFloat = 16
+    private let iconWidth: CGFloat = 14
     private let iconHeight: CGFloat = 20
     private var weatherVM: WeatherViewModel?
     private let infoContainerType: InfoContainerType
-    
-    private lazy var iconImageView: UIImageView = {
-        let image = UIImageView()
-        image.image = UIImage(named: infoContainerType.iconName)
-        image.tintColor = .white
-        image.setDimensions(height: iconHeight, width: iconWidth)
-        
-        return image
-    }()
-    
-    private lazy var windImageView: UIImageView = {
-        let image = UIImageView()
-        image.image = UIImage(named: weatherVM?.windDirection.iconName ?? "")
-        image.tintColor = .white
-        image.setDimensions(height: iconHeight, width: iconWidth)
-        
-        return image
-    }()
-    
-    private lazy var label: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = .white
-        label.textAlignment = .left
-        label.text = getLabelText()
+    private lazy var iconImageView = UIImageView.imageView(height: iconHeight, width: iconWidth)
+    private lazy var windImageView = UIImageView.imageView(height: iconHeight, width: iconWidth)
+    private lazy var label = UILabel.label(withFont: 18, textColor: .white)
 
-        return label
-    }()
-    
     // MARK: - Lifecycle
     
     init(weatherVM: WeatherViewModel?, containerType: InfoContainerType) {
@@ -65,6 +40,7 @@ class InfoContainerView: UIView {
         self.infoContainerType = containerType
         super.init(frame: .zero)
         
+        iconImageView.image = UIImage(named: containerType.iconName)
         let stack = UIStackView(arrangedSubviews: [iconImageView, label,windImageView])
         stack.axis = .horizontal
         stack.distribution = .fill

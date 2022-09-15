@@ -12,16 +12,7 @@ class WeatherInfoView: UIView {
     var weatherVM: WeatherViewModel?
     
     private let weatherImage = UIImageView()
-    
-    private lazy var dateLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12)
-        label.textColor = .white
-        label.text = weatherVM?.date
-        
-        return label
-    }()
-    
+    private let dateLabel = UILabel.label(withFont: 12, textColor: .white)
     private lazy var infoContainers: [InfoContainerView] = {
         var infoContainers = [InfoContainerView]()
         

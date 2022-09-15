@@ -39,37 +39,8 @@ class MainWeatherViewController: UIViewController {
         return weatherInfoView
     }()
     
-    private lazy var verticalScrollView: UIScrollView = {
-        let verticalScrollView = UIScrollView()
-        verticalScrollView.isScrollEnabled = true
-        verticalScrollView.backgroundColor = .CustomColor.lightBlue
-        verticalScrollView.contentInset = .init(top: 10, left: 10, bottom: 10, right: 10)
-        verticalScrollView.contentSize = CGSize(width: 2000, height: 50)
-        
-        var viewStack = [UIView]()
-        
-        for _ in 0..<10 {
-            let view = UIView()
-            view.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-            view.backgroundColor = .red
-            
-            viewStack.append(view)
-        }
-        
-        
-        let stack = UIStackView(arrangedSubviews: viewStack)
-        stack.setDimensions(height: 50, width: 1000)
-        stack.axis = .horizontal
-        stack.spacing = 12
-        stack.distribution = .fillEqually
-        
-        
-        verticalScrollView.addSubview(stack)
-        stack.pinTo(view: verticalScrollView)
-        
-        return verticalScrollView
-    }()
-    
+    private lazy var verticalScrollView = WeatherScrollView(weatherListVM: [])
+
     // MARK: - Lifecycle
     
     init(weatherListVM: WeatherListViewModel) {
@@ -107,8 +78,6 @@ class MainWeatherViewController: UIViewController {
         }
     }
     
-    // MARK: - API
-    
     // MARK: - Helper Functions
     
     private func configureUI() {
@@ -120,14 +89,14 @@ class MainWeatherViewController: UIViewController {
         weatherInfoView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
                                left: view.leftAnchor,
                                right: view.rightAnchor,
-                               height: 180)
+                               height: 220)
         weatherInfoView.weatherVM = weatherListVM.getWeatherViewModel(at: 0)
         
         view.addSubview(verticalScrollView)
         verticalScrollView.anchor(top: weatherInfoView.bottomAnchor,
                                   left: view.leftAnchor,
                                   right: view.rightAnchor,
-                                  height: 60)
+                                  height: 140)
         
         view.addSubview(tableView)
         tableView.anchor(top: verticalScrollView.bottomAnchor,
@@ -143,6 +112,7 @@ class MainWeatherViewController: UIViewController {
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         tableView.addSubview(refreshControl)
         tableView.separatorStyle = .none
+        tableView.rowHeight = 60
     }
     
     private func configureNavigationBar() {
@@ -163,6 +133,10 @@ class MainWeatherViewController: UIViewController {
             self.selectedWeatherVM = self.weatherListVM.getWeatherViewModel(at: 0)
             self.tableView.reloadData()
             self.configureNavigationBar()
+            self.verticalScrollView.setWeather(viewModel: self.weatherListVM.list)
+            self.weatherListVM.list.indices.forEach { index in
+                (self.tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? WeatherCell)?.cellState = .inactive
+            }
         }
     }
 }
