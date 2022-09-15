@@ -77,7 +77,7 @@ class MainWeatherViewController: UIViewController {
     // MARK: - Selectors
     
     @objc func handleLocation() {
-        print("handleLocation")
+        weatherListVM.handleSwitchViewButton()
     }
     
     @objc func refresh(sender: AnyObject) {

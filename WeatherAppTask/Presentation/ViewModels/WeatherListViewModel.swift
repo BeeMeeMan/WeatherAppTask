@@ -11,6 +11,7 @@ class WeatherListViewModel {
     private var networkService: NetworkService
     private var weatherList: [WeatherViewModel] = []
     private var city = "Kiev"
+    var handleSwitchViewButton: () -> Void = {}
     
     init(networkService: NetworkService) {
         self.networkService = networkService
