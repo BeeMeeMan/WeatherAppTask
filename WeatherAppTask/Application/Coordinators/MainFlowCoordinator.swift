@@ -11,8 +11,7 @@ class MainFlowCoordinator: Coordinator {
     private(set) var rootViewController = UINavigationController()
     
     private lazy var profileViewController: MainWeatherViewController = {
-        let vc = MainWeatherViewController()
-        vc.title = "weather"
+        let vc = MainWeatherViewController(weatherListVM: nil)
         return vc
     }()
 

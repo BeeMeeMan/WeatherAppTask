@@ -8,10 +8,28 @@
 import Foundation
 
 class WeatherListViewModel {
-    private let weatherList: [WeatherViewModel]
+    private var weatherList: [WeatherViewModel]
+    private var city = ""
     
-    init(weatherList: [List]) {
-        self.weatherList = weatherList.map(WeatherViewModel.init)
+    init(weatherListResponce: WeatherListResponce) {
+        self.weatherList = weatherListResponce.list.map(WeatherViewModel.init)
+        self.city = weatherListResponce.city.name
+    }
+    
+    var cityName: String {
+        city
+    }
+    
+    func numberOfRowsInSection(section: Int) -> Int {
+        return weatherList.count
+    }
+    
+    func getWeatherViewModel(at index: Int) -> WeatherViewModel {
+        return weatherList[index]
+    }
+    
+    func switchWeather(to viewModelList: [WeatherViewModel]) {
+        weatherList = viewModelList
     }
     
     var dayWeatherList: [WeatherViewModel] {
