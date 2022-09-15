@@ -12,6 +12,7 @@
 		8A3BC15328D361F2008AE012 /* UILabel+Exteniosns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3BC15228D361F2008AE012 /* UILabel+Exteniosns.swift */; };
 		8A3BC15528D363A0008AE012 /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3BC15428D363A0008AE012 /* UIImageView+Extensions.swift */; };
 		8A3BC15828D370DD008AE012 /* WeatherScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3BC15728D370DD008AE012 /* WeatherScrollView.swift */; };
+		8A3BC15A28D395C3008AE012 /* UIScreen+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3BC15928D395C3008AE012 /* UIScreen+Extensions.swift */; };
 		8A6B1BF828D2222A001A685B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B1BF728D2222A001A685B /* AppDelegate.swift */; };
 		8A6B1BFA28D2222A001A685B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B1BF928D2222A001A685B /* SceneDelegate.swift */; };
 		8A6B1C0128D2222B001A685B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A6B1C0028D2222B001A685B /* Assets.xcassets */; };
@@ -54,6 +55,7 @@
 		8A3BC15228D361F2008AE012 /* UILabel+Exteniosns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Exteniosns.swift"; sourceTree = "<group>"; };
 		8A3BC15428D363A0008AE012 /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
 		8A3BC15728D370DD008AE012 /* WeatherScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherScrollView.swift; sourceTree = "<group>"; };
+		8A3BC15928D395C3008AE012 /* UIScreen+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Extensions.swift"; sourceTree = "<group>"; };
 		8A6B1BF428D2222A001A685B /* WeatherAppTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherAppTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A6B1BF728D2222A001A685B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8A6B1BF928D2222A001A685B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				8A6B1C5D28D27127001A685B /* UIView+Anchors.swift */,
 				8A3BC15228D361F2008AE012 /* UILabel+Exteniosns.swift */,
 				8A3BC15428D363A0008AE012 /* UIImageView+Extensions.swift */,
+				8A3BC15928D395C3008AE012 /* UIScreen+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -368,6 +371,7 @@
 				8A6B1C2528D22E59001A685B /* NetworkService.swift in Sources */,
 				8A6B1C3128D2375A001A685B /* WindDirection.swift in Sources */,
 				8A6B1BFA28D2222A001A685B /* SceneDelegate.swift in Sources */,
+				8A3BC15A28D395C3008AE012 /* UIScreen+Extensions.swift in Sources */,
 				8A6B1C2028D22B8F001A685B /* AppAppearance.swift in Sources */,
 				8A3BC15328D361F2008AE012 /* UILabel+Exteniosns.swift in Sources */,
 				8A6B1C2228D22BB3001A685B /* UIColor+Constants.swift in Sources */,

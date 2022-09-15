@@ -22,6 +22,8 @@ class MainWeatherViewController: UIViewController {
     
     private let tableView = UITableView()
     private let refreshControl = UIRefreshControl()
+    private lazy var weatherInfoHeightAnchor = weatherInfoView.heightAnchor.constraint(equalToConstant: 250)
+    private lazy var weatherScrollViewHeightAnchor = weatherInfoView.heightAnchor.constraint(equalToConstant: 140)
     
     private lazy var leftBarButton: UIButton = {
         let button = UIButton(type: .system)
@@ -54,6 +56,9 @@ class MainWeatherViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        weatherInfoHeightAnchor.isActive = UIScreen.height > UIScreen.width ? true : false
+        weatherScrollViewHeightAnchor.isActive = UIScreen.height > UIScreen.width ? false : true
+        
         configureUI()
         weatherListVM.getWeather() { isSuccess in
             if isSuccess {
@@ -61,6 +66,12 @@ class MainWeatherViewController: UIViewController {
             }
             
         }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        weatherInfoHeightAnchor.isActive = UIScreen.isPortrait(by: traitCollection) ? true : false
+        weatherScrollViewHeightAnchor.isActive = UIScreen.isPortrait(by: traitCollection) ? false : true
     }
     
     // MARK: - Selectors
@@ -88,8 +99,7 @@ class MainWeatherViewController: UIViewController {
         weatherInfoView.center(by: .xAxis, inView: view)
         weatherInfoView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
                                left: view.leftAnchor,
-                               right: view.rightAnchor,
-                               height: 220)
+                               right: view.rightAnchor)
         weatherInfoView.weatherVM = weatherListVM.getWeatherViewModel(at: 0)
         
         view.addSubview(verticalScrollView)
