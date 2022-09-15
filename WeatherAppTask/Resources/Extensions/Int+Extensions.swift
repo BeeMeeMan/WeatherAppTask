@@ -10,11 +10,9 @@ import Foundation
 extension Int {
     func toDate() -> String {
         let utcDateFormatter = DateFormatter()
-        utcDateFormatter.dateStyle = .medium
-        utcDateFormatter.timeStyle = .none
-        utcDateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        utcDateFormatter.dateFormat = "E, d MMMM"
         
-        let date = Date()
+        let date = Date(timeIntervalSince1970: TimeInterval(self))
 
         return utcDateFormatter.string(from: date)
     }

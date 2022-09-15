@@ -8,32 +8,49 @@
 import Foundation
 
 class WeatherListViewModel {
-    private var weatherList: [WeatherViewModel]
-    private var city = ""
+    private var networkService: NetworkService
+    private var weatherList: [WeatherViewModel] = []
+    private var city = "" 
     
-    init(weatherListResponce: WeatherListResponce) {
-        self.weatherList = weatherListResponce.list.map(WeatherViewModel.init)
-        self.city = weatherListResponce.city.name
+    init(networkService: NetworkService) {
+        self.networkService = networkService
     }
     
+    func setCity(_ name: String) {
+        city = name
+    }
+}
+
+extension WeatherListViewModel {
     var cityName: String {
         city
+    }
+
+    var dayWeatherList: [WeatherViewModel] {
+        return getDayWeatherFromThreeHourInterval(weatherArray: weatherList)
+    }
+    
+    func getWeather(completion: @escaping(Bool) -> Void) {
+        networkService.getWeather(for: city) { responce in
+            if let responce = responce {
+                self.weatherList = responce.list.map(WeatherViewModel.init)
+                completion(true)
+            } else {
+                completion(false)
+            }
+        }
     }
     
     func numberOfRowsInSection(section: Int) -> Int {
         return weatherList.count
     }
     
-    func getWeatherViewModel(at index: Int) -> WeatherViewModel {
-        return weatherList[index]
-    }
-    
-    func switchWeather(to viewModelList: [WeatherViewModel]) {
-        weatherList = viewModelList
-    }
-    
-    var dayWeatherList: [WeatherViewModel] {
-        return getDayWeatherFromThreeHourInterval(weatherArray: weatherList)
+    func getWeatherViewModel(at index: Int) -> WeatherViewModel? {
+        if weatherList.count >= index + 1 {
+            return weatherList[index]
+        } else {
+            return nil
+        }
     }
     
     private func getDayWeatherFromThreeHourInterval(weatherArray: [WeatherViewModel]) ->  [WeatherViewModel] {
@@ -41,10 +58,10 @@ class WeatherListViewModel {
         var answer = [WeatherViewModel]()
         
         for item in weatherArray {
-          if index % 8 == 0 || index == 1 {
-              answer.append(item)
-          }
-          index += 1
+            if index % 8 == 0 || index == 1 {
+                answer.append(item)
+            }
+            index += 1
         }
         
         return answer

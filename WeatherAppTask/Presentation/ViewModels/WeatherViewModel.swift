@@ -49,13 +49,6 @@ extension WeatherViewModel {
     }
     
     var date: String {
-        let utcDateFormatter = DateFormatter()
-        utcDateFormatter.dateStyle = .medium
-        
-        utcDateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        
-        let date = Date()
-        print(utcDateFormatter.string(from: date))
         return weather.dt.toDate()
     }
 }

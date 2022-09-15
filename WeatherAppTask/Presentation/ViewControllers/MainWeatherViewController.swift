@@ -12,13 +12,8 @@ private let reuseIdentifier = "WeatherCell"
 class MainWeatherViewController: UIViewController {
     
     // MARK: - Properties
-    
-    private var weatherListVM: WeatherListViewModel? {
-        didSet {
-            configureViewWithListVM()
-        }
-    }
-    
+
+    private var weatherListVM: WeatherListViewModel
     private var selectedWeatherVM: WeatherViewModel? {
         didSet {
             configureViewWithVM()
@@ -26,6 +21,7 @@ class MainWeatherViewController: UIViewController {
     }
     
     private let tableView = UITableView()
+    private let refreshControl = UIRefreshControl()
     
     private lazy var leftBarButton: UIButton = {
         let button = UIButton(type: .system)
@@ -38,7 +34,7 @@ class MainWeatherViewController: UIViewController {
     }()
     
     private lazy var weatherInfoView: WeatherInfoView = {
-        let weatherInfoView = WeatherInfoView(weatherVM: weatherListVM?.getWeatherViewModel(at: 0))
+        let weatherInfoView = WeatherInfoView(weatherVM: weatherListVM.getWeatherViewModel(at: 0))
         
         return weatherInfoView
     }()
@@ -70,50 +66,45 @@ class MainWeatherViewController: UIViewController {
         
         verticalScrollView.addSubview(stack)
         stack.pinTo(view: verticalScrollView)
-        print("#\(stack.subviews)")
         
         return verticalScrollView
     }()
     
     // MARK: - Lifecycle
     
-    init(weatherListVM: WeatherListViewModel?) {
+    init(weatherListVM: WeatherListViewModel) {
         self.weatherListVM = weatherListVM
         super.init(nibName: nil, bundle: nil)
     }
     
     required convenience init?(coder: NSCoder) {
-        self.init(weatherListVM: WeatherListViewModel(weatherListResponce: WeatherListResponce(list: [], city: City(name: ""))))
+        self.init(weatherListVM: WeatherListViewModel(networkService: NetworkService()))
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let weatherURL = NetworkConfig.Urls.urlForWeatherList(by: "Харків") {
-            let resource = Resource<WeatherListResponce>(url: weatherURL) { data in
-                return try? JSONDecoder().decode(WeatherListResponce.self, from: data)
+        configureUI()
+        weatherListVM.getWeather() { isSuccess in
+            if isSuccess {
+                self.configureViewWithListVM()
             }
             
-            NetworkService().load(resource: resource) { result in
-                if result != nil {
-                    DispatchQueue.main.async {
-                        print(result)
-                        if let result = result {
-                            self.weatherListVM = WeatherListViewModel(weatherListResponce: result)
-                        }
-                        
-                        self.configureViewWithListVM()
-                    }
-                }
-            }
         }
-        configureUI()
     }
     
     // MARK: - Selectors
     
     @objc func handleLocation() {
         print("handleLocation")
+    }
+    
+    @objc func refresh(sender: AnyObject) {
+        weatherListVM.getWeather() { isSuccess in
+            if isSuccess {
+                self.configureViewWithListVM()
+            }
+            self.refreshControl.endRefreshing()
+        }
     }
     
     // MARK: - API
@@ -130,7 +121,7 @@ class MainWeatherViewController: UIViewController {
                                left: view.safeAreaLayoutGuide.leftAnchor,
                                right: view.safeAreaLayoutGuide.rightAnchor,
                                height: 180)
-        weatherInfoView.weatherVM = weatherListVM?.getWeatherViewModel(at: 0)
+        weatherInfoView.weatherVM = weatherListVM.getWeatherViewModel(at: 0)
         
         view.addSubview(verticalScrollView)
         verticalScrollView.anchor(top: weatherInfoView.bottomAnchor,
@@ -149,6 +140,8 @@ class MainWeatherViewController: UIViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         tableView.delegate = self
         tableView.dataSource = self
+        refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+        tableView.addSubview(refreshControl)
     }
     
     private func configureNavigationBar() {
@@ -158,14 +151,17 @@ class MainWeatherViewController: UIViewController {
     
     private func configureViewWithVM() {
         guard let weatherVM = selectedWeatherVM else { return }
-        weatherInfoView.setWeather(viewModel: weatherVM)
+        DispatchQueue.main.async {
+            self.weatherInfoView.setWeather(viewModel: weatherVM)
+        }
     }
     
     private func configureViewWithListVM() {
-        guard let weatherListVM = weatherListVM else { return }
-        leftBarButton.setTitle("  \(weatherListVM.cityName)", for: .normal)
-        selectedWeatherVM = weatherListVM.getWeatherViewModel(at: 0)
-        tableView.reloadData()
+        DispatchQueue.main.async {
+            self.leftBarButton.setTitle("  \(self.weatherListVM.cityName)", for: .normal)
+            self.selectedWeatherVM = self.weatherListVM.getWeatherViewModel(at: 0)
+            self.tableView.reloadData()
+        }
     }
 }
 
@@ -173,13 +169,12 @@ class MainWeatherViewController: UIViewController {
 
 extension MainWeatherViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return weatherListVM?.numberOfRowsInSection(section: section) ?? 0
+        return weatherListVM.numberOfRowsInSection(section: section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
-        cell.textLabel?.text = weatherListVM?.getWeatherViewModel(at: indexPath.row).tempMin
+        cell.textLabel?.text = weatherListVM.getWeatherViewModel(at: indexPath.row)?.tempMin
         return cell
     }
 }
@@ -188,6 +183,6 @@ extension MainWeatherViewController: UITableViewDataSource {
 
 extension MainWeatherViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedWeatherVM = weatherListVM?.getWeatherViewModel(at: indexPath.row)
+        selectedWeatherVM = weatherListVM.getWeatherViewModel(at: indexPath.row)
     }
 }

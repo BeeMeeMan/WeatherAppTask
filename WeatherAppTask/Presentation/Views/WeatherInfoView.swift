@@ -17,7 +17,7 @@ class WeatherInfoView: UIView {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = .white
-        label.text = "TEST date " //weatherVM?.date
+        label.text = weatherVM?.date
         
         return label
     }()
@@ -52,7 +52,6 @@ class WeatherInfoView: UIView {
         weatherVM = viewModel
         infoContainers.forEach { container in
             container.setWeather(viewModel: viewModel)
-            print("#SET")
         }
         weatherImage.image = UIImage(named: weatherVM?.weatherType.iconName ?? "")
         dateLabel.text = viewModel.date
@@ -76,7 +75,7 @@ class WeatherInfoView: UIView {
                             paddingLeft: 40,
                             width: 140,
                             height: 140)
-//
+
         let infoContainersStack = UIStackView(arrangedSubviews: infoContainers)
         infoContainersStack.axis = .vertical
         infoContainersStack.spacing = 16
