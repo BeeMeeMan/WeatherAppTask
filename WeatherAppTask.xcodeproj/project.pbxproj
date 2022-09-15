@@ -39,6 +39,7 @@
 		8A6B1C5C28D265B1001A685B /* InfoContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B1C5B28D265B1001A685B /* InfoContainerView.swift */; };
 		8A6B1C5E28D27127001A685B /* UIView+Anchors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B1C5D28D27127001A685B /* UIView+Anchors.swift */; };
 		8AB8B98D28D3A48000E83A92 /* PickCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8B98C28D3A48000E83A92 /* PickCityViewController.swift */; };
+		8AB8B98F28D3A98600E83A92 /* PickPositionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8B98E28D3A98600E83A92 /* PickPositionViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		8A6B1C5B28D265B1001A685B /* InfoContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoContainerView.swift; sourceTree = "<group>"; };
 		8A6B1C5D28D27127001A685B /* UIView+Anchors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Anchors.swift"; sourceTree = "<group>"; };
 		8AB8B98C28D3A48000E83A92 /* PickCityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickCityViewController.swift; sourceTree = "<group>"; };
+		8AB8B98E28D3A98600E83A92 /* PickPositionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickPositionViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +223,7 @@
 			children = (
 				8A6B1C4A28D24EB7001A685B /* WeatherListViewModel.swift */,
 				8A6B1C2D28D2310E001A685B /* WeatherViewModel.swift */,
+				8AB8B98E28D3A98600E83A92 /* PickPositionViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 				8A6B1C1628D22A1C001A685B /* AppFlowCoordinator.swift in Sources */,
 				8A6B1BF828D2222A001A685B /* AppDelegate.swift in Sources */,
 				8A6B1C5C28D265B1001A685B /* InfoContainerView.swift in Sources */,
+				8AB8B98F28D3A98600E83A92 /* PickPositionViewModel.swift in Sources */,
 				8A6B1C4B28D24EB7001A685B /* WeatherListViewModel.swift in Sources */,
 				8A3BC14E28D358C0008AE012 /* WeatherCell.swift in Sources */,
 				8A3BC15C28D39720008AE012 /* PickOnMapLocationViewController.swift in Sources */,

@@ -131,7 +131,7 @@ class MainWeatherViewController: UIViewController {
     
     private func configureNavigationBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftBarButton)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_my_location"), style: .done, target: self, action: #selector(goToPickLocationOnMapView))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_my_location"), style: .done, target: self, action: #selector(goToPickCityView))
     }
     
     private func configureViewWithVM() {

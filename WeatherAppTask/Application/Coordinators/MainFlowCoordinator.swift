@@ -24,22 +24,20 @@ class MainFlowCoordinator: Coordinator {
     }()
 
     private lazy var pickOnMapLocationViewController: PickOnMapLocationViewController = {
-
-//        let weatherListViewModel = WeatherListViewModel(networkService: networkService)
-//        weatherListViewModel.handleSwitchViewButton = { [weak self] in
-//            self?.goToPickLocationViewController()
-//        }
-        let vc = PickOnMapLocationViewController()
+        let pickPositionViewModel = PickPositionViewModel()
+        pickPositionViewModel.handleGoBack = { [weak self] in
+            self?.goBack()
+        }
+        let vc = PickOnMapLocationViewController(pickPositionViewModel: pickPositionViewModel)
         return vc
     }()
     
     private lazy var pickCityViewController: PickCityViewController = {
-
-//        let weatherListViewModel = WeatherListViewModel(networkService: networkService)
-//        weatherListViewModel.handleSwitchViewButton = { [weak self] in
-//            self?.goToPickLocationViewController()
-//        }
-        let vc = PickCityViewController()
+        let pickPositionViewModel = PickPositionViewModel()
+        pickPositionViewModel.handleGoBack = { [weak self] in
+            self?.goBack()
+        }
+        let vc = PickCityViewController(pickPositionViewModel: pickPositionViewModel)
         return vc
     }()
 
@@ -49,10 +47,16 @@ class MainFlowCoordinator: Coordinator {
     }
     
     private func goToPickOnMapLocationViewController() {
+        print("Map")
         rootViewController.pushViewController(pickOnMapLocationViewController, animated: true)
     }
     
     private func goToPickCityViewController() {
+        print("CIty")
         rootViewController.pushViewController(pickCityViewController, animated: true)
+    }
+    
+    private func goBack() {
+            _ = rootViewController.popViewController(animated: true)
     }
 }

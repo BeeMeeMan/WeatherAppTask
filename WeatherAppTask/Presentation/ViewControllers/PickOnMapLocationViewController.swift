@@ -12,13 +12,23 @@ class PickOnMapLocationViewController: UIViewController {
     
     // MARK: - Properties
     
+    private var pickPositionViewModel: PickPositionViewModel
+    
     private let mapView = MKMapView()
     private let locationManager = CLLocationManager()
     
-    private let searchController = UISearchController(searchResultsController: nil)
-    lazy   var searchBar: UISearchBar = UISearchBar()
+    
     
     // MARK: - Lifecycle
+    
+    init(pickPositionViewModel: PickPositionViewModel) {
+        self.pickPositionViewModel = pickPositionViewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required convenience init?(coder: NSCoder) {
+        self.init(pickPositionViewModel: PickPositionViewModel())
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +36,6 @@ class PickOnMapLocationViewController: UIViewController {
         configureUI()
         enableLocationServices()
         configureNavigationBar()
-        
     }
     
     // MARK: - Selectors
@@ -36,7 +45,38 @@ class PickOnMapLocationViewController: UIViewController {
     }
     
     @objc private func handleGoBack() {
-        print("#handlePickCity")
+        pickPositionViewModel.handleGoBack()
+    }
+    
+    @objc func revealRegionDetailsWithLongPressOnMap(sender: UILongPressGestureRecognizer) {
+        if sender.state != UIGestureRecognizer.State.began { return }
+        removeAnnotationsAndOverlays()
+        let touchLocation = sender.location(in: mapView)
+        let locationCoordinate = mapView.convert(touchLocation, toCoordinateFrom: mapView)
+        
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = locationCoordinate
+        mapView.addAnnotation(annotation)
+        mapView.selectAnnotation(annotation, animated: true)
+        mapView.addAnnotation(annotation)
+        
+        let geoCoder = CLGeocoder()
+        let location = CLLocation(latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude)
+        geoCoder.reverseGeocodeLocation(location, completionHandler:
+                                            {
+            placemarks, error -> Void in
+            
+            // Place details
+            guard let placeMark = placemarks?.first else { return }
+            // City
+            if let city = placeMark.subAdministrativeArea {
+                self.title = city
+            }
+            // Country
+            if let country = placeMark.country {
+                print(country)
+            }
+        })
     }
     
     // MARK: - API
@@ -53,29 +93,20 @@ class PickOnMapLocationViewController: UIViewController {
         mapView.frame = view.frame
         mapView.showsUserLocation = true
         mapView.userTrackingMode = .follow
+        mapView.delegate = self
+        
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(revealRegionDetailsWithLongPressOnMap))
+        mapView.addGestureRecognizer(longPressRecognizer)
     }
     
     private func configureNavigationBar() {
-        searchBar.placeholder = "Enter city name"
-//        searchBar = .white
-        navigationItem.titleView = searchBar
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_search"), style: .done, target: self, action: #selector(handlePickCity))
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_back"), style: .done, target: self, action: #selector(handleGoBack))
     }
     
-    private func configureSearchController() {
-        navigationController?.navigationBar.topItem?.searchController?.isActive = true
-        searchController.searchBar.showsCancelButton = false
-        searchController.searchResultsUpdater = self
-        navigationItem.searchController = searchController
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.hidesNavigationBarDuringPresentation = false
-        searchController.searchBar.placeholder = "Search for a user"
-        definesPresentationContext = false
-        
-        if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
-            textField.textColor = .systemPurple
-            textField.backgroundColor = .white
+    func removeAnnotationsAndOverlays() {
+        mapView.annotations.forEach { annotation in
+            mapView.removeAnnotation(annotation)
         }
     }
 }
@@ -116,6 +147,14 @@ extension PickOnMapLocationViewController: CLLocationManagerDelegate {
 extension PickOnMapLocationViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text?.lowercased() else { return }
+        
+    }
+}
+
+// MARK: - MKMapViewDelegate
+
+extension PickOnMapLocationViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
         
     }
 }
