@@ -53,6 +53,7 @@ class WeatherInfoView: UIView {
         infoContainers.forEach { container in
             container.setWeather(viewModel: viewModel)
         }
+        
         weatherImage.image = UIImage(named: weatherVM?.weatherType.iconName ?? "")
         dateLabel.text = viewModel.date
     }

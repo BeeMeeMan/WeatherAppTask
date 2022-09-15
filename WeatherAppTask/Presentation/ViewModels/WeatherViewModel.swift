@@ -8,36 +8,43 @@
 import Foundation
 
 class WeatherViewModel {
-    private let weather: List
+    private let weather: List?
+    private let noData: String = "n/a "
     
-    init(weather: List) {
+    init(weather: List?) {
         self.weather = weather
     }
 }
 
 extension WeatherViewModel {
     var temp: String {
-        Int(weather.main.temp.inCelsium()).asString()
+        guard let weather = weather else { return noData + "°" }
+        return Int(weather.main.temp.inCelsium()).asString()
     }
     
     var tempMin: String {
-        Int(weather.main.tempMin.inCelsium()).asString()
+        guard let weather = weather else { return noData + "°" }
+        return Int(weather.main.tempMin.inCelsium()).asString()
     }
     
     var tempMax: String {
-        Int(weather.main.tempMax.inCelsium()).asString()
+        guard let weather = weather else { return noData + "°" }
+        return Int(weather.main.tempMax.inCelsium()).asString()
     }
     
     var humidity: String {
-        String("\(weather.main.humidity)%")
+        guard let weather = weather else { return noData + "%" }
+        return String("\(weather.main.humidity)%")
     }
     
     var windSpeed: String {
-        String("\(weather.wind.speed.rounded()) м/cек")
+        guard let weather = weather else { return noData + "м/cек" }
+        return String("\(weather.wind.speed.rounded()) м/cек")
     }
     
     var windDegree: Int {
-        weather.wind.deg
+        guard let weather = weather else { return 500 }
+        return weather.wind.deg
     }
     
     var windDirection: WindDirection {
@@ -45,11 +52,23 @@ extension WeatherViewModel {
     }
     
     var weatherType: WeatherType {
-        WeatherType.getType(by: weather.weather.first?.icon ?? "")
+        guard let weather = weather else { return .noData }
+        return WeatherType.getType(by: weather.weather.first?.icon ?? "")
     }
     
     var date: String {
-        return weather.dt.toDate()
+        guard let weather = weather else { return noData }
+        return weather.dt.getDateWithFormat("E, d MMMM")
+    }
+    
+    var dayOfWeek: String {
+        guard let weather = weather else { return noData }
+        return weather.dt.getDateWithFormat("E")
+    }
+    
+    var time: String {
+        guard let weather = weather else { return noData }
+        return weather.dt.getDateWithFormat("HH:mm")
     }
 }
 
@@ -66,5 +85,14 @@ fileprivate extension Double {
 fileprivate extension Int {
     func asString() -> String {
         String("\(self)°")
+    }
+    
+    func getDateWithFormat(_ format: String) -> String {
+            let utcDateFormatter = DateFormatter()
+            utcDateFormatter.dateFormat = format
+            
+            let date = Date(timeIntervalSince1970: TimeInterval(self))
+
+            return utcDateFormatter.string(from: date)
     }
 }

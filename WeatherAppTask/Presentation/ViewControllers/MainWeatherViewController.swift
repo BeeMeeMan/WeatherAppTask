@@ -118,8 +118,8 @@ class MainWeatherViewController: UIViewController {
         view.addSubview(weatherInfoView)
         weatherInfoView.center(by: .xAxis, inView: view)
         weatherInfoView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
-                               left: view.safeAreaLayoutGuide.leftAnchor,
-                               right: view.safeAreaLayoutGuide.rightAnchor,
+                               left: view.leftAnchor,
+                               right: view.rightAnchor,
                                height: 180)
         weatherInfoView.weatherVM = weatherListVM.getWeatherViewModel(at: 0)
         
@@ -137,11 +137,12 @@ class MainWeatherViewController: UIViewController {
     }
     
     private func configureTableView() {
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+        tableView.register(WeatherCell.self, forCellReuseIdentifier: reuseIdentifier)
         tableView.delegate = self
         tableView.dataSource = self
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         tableView.addSubview(refreshControl)
+        tableView.separatorStyle = .none
     }
     
     private func configureNavigationBar() {
@@ -161,6 +162,7 @@ class MainWeatherViewController: UIViewController {
             self.leftBarButton.setTitle("  \(self.weatherListVM.cityName)", for: .normal)
             self.selectedWeatherVM = self.weatherListVM.getWeatherViewModel(at: 0)
             self.tableView.reloadData()
+            self.configureNavigationBar()
         }
     }
 }
@@ -169,12 +171,13 @@ class MainWeatherViewController: UIViewController {
 
 extension MainWeatherViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return weatherListVM.numberOfRowsInSection(section: section)
+        return weatherListVM.numberOfRowsInSectionFromThreeHourInterval(section: section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
-        cell.textLabel?.text = weatherListVM.getWeatherViewModel(at: indexPath.row)?.tempMin
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as? WeatherCell else { return UITableViewCell() }
+        cell.weatherVM = weatherListVM.getWeatherViewModelFromThreeHourInterval(at: indexPath.row)
+        
         return cell
     }
 }
@@ -182,7 +185,12 @@ extension MainWeatherViewController: UITableViewDataSource {
 // MARK: - Table view delegates
 
 extension MainWeatherViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        (tableView.cellForRow(at: indexPath) as? WeatherCell)?.cellState = .inactive
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedWeatherVM = weatherListVM.getWeatherViewModel(at: indexPath.row)
+        (tableView.cellForRow(at: indexPath) as? WeatherCell)?.cellState = .active
     }
 }

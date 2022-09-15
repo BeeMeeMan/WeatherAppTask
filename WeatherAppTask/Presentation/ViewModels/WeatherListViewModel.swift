@@ -10,7 +10,7 @@ import Foundation
 class WeatherListViewModel {
     private var networkService: NetworkService
     private var weatherList: [WeatherViewModel] = []
-    private var city = "" 
+    private var city = "Kiev"
     
     init(networkService: NetworkService) {
         self.networkService = networkService
@@ -22,14 +22,15 @@ class WeatherListViewModel {
 }
 
 extension WeatherListViewModel {
+    
     var cityName: String {
         city
     }
 
-    var dayWeatherList: [WeatherViewModel] {
-        return getDayWeatherFromThreeHourInterval(weatherArray: weatherList)
+    var isNoData: Bool {
+        return weatherList.count == 0
     }
-    
+
     func getWeather(completion: @escaping(Bool) -> Void) {
         networkService.getWeather(for: city) { responce in
             if let responce = responce {
@@ -45,19 +46,31 @@ extension WeatherListViewModel {
         return weatherList.count
     }
     
-    func getWeatherViewModel(at index: Int) -> WeatherViewModel? {
-        if weatherList.count >= index + 1 {
-            return weatherList[index]
+    func getWeatherViewModel(at index: Int) -> WeatherViewModel {
+        if isNoData {
+            return WeatherViewModel(weather: nil)
         } else {
-            return nil
+            return weatherList[index]
         }
     }
     
-    private func getDayWeatherFromThreeHourInterval(weatherArray: [WeatherViewModel]) ->  [WeatherViewModel] {
+    func numberOfRowsInSectionFromThreeHourInterval(section: Int) -> Int {
+        return getDayWeatherFromThreeHourInterval().count
+    }
+    
+    func getWeatherViewModelFromThreeHourInterval(at index: Int) -> WeatherViewModel {
+        if isNoData {
+            return WeatherViewModel(weather: nil)
+        } else {
+            return getDayWeatherFromThreeHourInterval()[index]
+        }
+    }
+    
+    private func getDayWeatherFromThreeHourInterval() ->  [WeatherViewModel] {
         var index = 1
         var answer = [WeatherViewModel]()
         
-        for item in weatherArray {
+        for item in weatherList {
             if index % 8 == 0 || index == 1 {
                 answer.append(item)
             }
