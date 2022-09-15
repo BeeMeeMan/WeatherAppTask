@@ -7,8 +7,6 @@
 
 import Foundation
 
-typealias TemperatureDegrees = Double
-
 class WeatherViewModel {
     private let weather: List
 
@@ -18,16 +16,16 @@ class WeatherViewModel {
 }
 
 extension WeatherViewModel {
-    var temp: TemperatureDegrees {
-        weather.main.temp
+    var temp: String {
+        weather.main.temp.inCelsium().asString()
     }
 
-    var tempMin: TemperatureDegrees {
-        weather.main.tempMin
+    var tempMin: String {
+        weather.main.tempMin.inCelsium().asString()
     }
 
-    var tempMax: TemperatureDegrees {
-        weather.main.tempMax
+    var tempMax: String {
+        weather.main.tempMax.inCelsium().asString()
     }
 
     var humidity: String {
@@ -53,15 +51,25 @@ extension WeatherViewModel {
     var date: String {
         let utcDateFormatter = DateFormatter()
         utcDateFormatter.dateStyle = .medium
-        utcDateFormatter.timeStyle = .medium
 
-        // The default timeZone on DateFormatter is the device’s
-        // local time zone. Set timeZone to UTC to get UTC time.
         utcDateFormatter.timeZone = TimeZone(abbreviation: "UTC")
 
-        // Printing a Date
         let date = Date()
         print(utcDateFormatter.string(from: date))
         return weather.dt.toDate()
+    }
+}
+
+fileprivate extension Double {
+    func inCelsium() -> Self {
+        return (self - 273.15)
+    }
+
+    func inFarenheit() -> Self {
+        return (1.8 * (self - 273) + 32)
+    }
+    
+    func asString() -> String {
+        String("\(self)°")
     }
 }

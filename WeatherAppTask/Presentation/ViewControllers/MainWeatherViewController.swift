@@ -22,11 +22,10 @@ class MainWeatherViewController: UITableViewController {
             let resource = Resource<WeatherListResponce>(url: weatherURL) { data in
                 return try? JSONDecoder().decode(WeatherListResponce.self, from: data)
             }
-            let text = "clear sky"
-           
+            
             NetworkService().load(resource: resource) { result in
-                if let weatherResource = result {
-                    print(result)
+                if result != nil {
+                    print(result ?? "")
                 }
             }
         }

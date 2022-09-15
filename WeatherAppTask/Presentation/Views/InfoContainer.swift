@@ -78,7 +78,7 @@ class InputContainerView: UIView {
     
     func getLabelText() -> String {
         switch infoContainerType {
-        case .temperature: return "\(weatherVM.tempMax.asString())/\(weatherVM.tempMax.asString())"
+        case .temperature: return "\(weatherVM.tempMax)/\(weatherVM.tempMin)"
         case .humidity: return weatherVM.humidity
         case .wind: return weatherVM.windSpeed
         }

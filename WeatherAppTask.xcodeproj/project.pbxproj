@@ -32,7 +32,6 @@
 		8A6B1C5528D26343001A685B /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B1C5428D26343001A685B /* Int+Extensions.swift */; };
 		8A6B1C5C28D265B1001A685B /* InfoContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B1C5B28D265B1001A685B /* InfoContainer.swift */; };
 		8A6B1C5E28D27127001A685B /* UIView+Anchors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B1C5D28D27127001A685B /* UIView+Anchors.swift */; };
-		8A6B1C6128D275D3001A685B /* TemperatureDegrees+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B1C6028D275D3001A685B /* TemperatureDegrees+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,7 +71,6 @@
 		8A6B1C5428D26343001A685B /* Int+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extensions.swift"; sourceTree = "<group>"; };
 		8A6B1C5B28D265B1001A685B /* InfoContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoContainer.swift; sourceTree = "<group>"; };
 		8A6B1C5D28D27127001A685B /* UIView+Anchors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Anchors.swift"; sourceTree = "<group>"; };
-		8A6B1C6028D275D3001A685B /* TemperatureDegrees+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TemperatureDegrees+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,12 +123,12 @@
 		8A6B1C0F28D2292E001A685B /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				8A6B1C2628D22E97001A685B /* Models */,
-				8A6B1C2328D22E3A001A685B /* Services */,
-				8A6B1C1028D22944001A685B /* Coordinators */,
-				8A6B1BF728D2222A001A685B /* AppDelegate.swift */,
-				8A6B1BF928D2222A001A685B /* SceneDelegate.swift */,
 				8A6B1C1F28D22B8F001A685B /* AppAppearance.swift */,
+				8A6B1BF728D2222A001A685B /* AppDelegate.swift */,
+				8A6B1C1028D22944001A685B /* Coordinators */,
+				8A6B1C2628D22E97001A685B /* Models */,
+				8A6B1BF928D2222A001A685B /* SceneDelegate.swift */,
+				8A6B1C2328D22E3A001A685B /* Services */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -179,7 +177,6 @@
 				8A6B1C2A28D22F7D001A685B /* String+Extensions.swift */,
 				8A6B1C5428D26343001A685B /* Int+Extensions.swift */,
 				8A6B1C5D28D27127001A685B /* UIView+Anchors.swift */,
-				8A6B1C6028D275D3001A685B /* TemperatureDegrees+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -206,8 +203,8 @@
 		8A6B1C2C28D23106001A685B /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				8A6B1C2D28D2310E001A685B /* WeatherViewModel.swift */,
 				8A6B1C4A28D24EB7001A685B /* WeatherListViewModel.swift */,
+				8A6B1C2D28D2310E001A685B /* WeatherViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -232,8 +229,8 @@
 		8A6B1C4E28D261A2001A685B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8A6B1C5228D26244001A685B /* WeatherInfoView.swift */,
 				8A6B1C5B28D265B1001A685B /* InfoContainer.swift */,
+				8A6B1C5228D26244001A685B /* WeatherInfoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -360,7 +357,6 @@
 				8A6B1C2028D22B8F001A685B /* AppAppearance.swift in Sources */,
 				8A6B1C2228D22BB3001A685B /* UIColor+Constants.swift in Sources */,
 				8A6B1C2828D22EA3001A685B /* WeatherResponce.swift in Sources */,
-				8A6B1C6128D275D3001A685B /* TemperatureDegrees+Extensions.swift in Sources */,
 				8A6B1C4D28D256BC001A685B /* NetworkConfig.swift in Sources */,
 				8A6B1C4628D241A4001A685B /* WeatherType.swift in Sources */,
 				8A6B1C1828D22A33001A685B /* MainFlowCoordinator.swift in Sources */,
