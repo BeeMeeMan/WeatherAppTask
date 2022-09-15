@@ -13,20 +13,33 @@ class MainFlowCoordinator: Coordinator {
     private lazy var profileViewController: MainWeatherViewController = {
         let networkService = NetworkService()
         let weatherListViewModel = WeatherListViewModel(networkService: networkService)
-        weatherListViewModel.handleSwitchViewButton = { [weak self] in
-            self?.goToPickLocationViewController()
+        weatherListViewModel.handleSwitchToMap = { [weak self] in
+            self?.goToPickOnMapLocationViewController()
+        }
+        weatherListViewModel.handleSwitchToCityPick = { [weak self] in
+            self?.goToPickCityViewController()
         }
         let vc = MainWeatherViewController(weatherListVM: weatherListViewModel)
         return vc
     }()
 
-    private lazy var pickLocationViewController: PickLocationViewController = {
+    private lazy var pickOnMapLocationViewController: PickOnMapLocationViewController = {
 
 //        let weatherListViewModel = WeatherListViewModel(networkService: networkService)
 //        weatherListViewModel.handleSwitchViewButton = { [weak self] in
 //            self?.goToPickLocationViewController()
 //        }
-        let vc = PickLocationViewController()
+        let vc = PickOnMapLocationViewController()
+        return vc
+    }()
+    
+    private lazy var pickCityViewController: PickCityViewController = {
+
+//        let weatherListViewModel = WeatherListViewModel(networkService: networkService)
+//        weatherListViewModel.handleSwitchViewButton = { [weak self] in
+//            self?.goToPickLocationViewController()
+//        }
+        let vc = PickCityViewController()
         return vc
     }()
 
@@ -35,7 +48,11 @@ class MainFlowCoordinator: Coordinator {
         rootViewController.setViewControllers([profileViewController], animated: false)
     }
     
-    private func goToPickLocationViewController() {
-        rootViewController.pushViewController(pickLocationViewController, animated: true)
+    private func goToPickOnMapLocationViewController() {
+        rootViewController.pushViewController(pickOnMapLocationViewController, animated: true)
+    }
+    
+    private func goToPickCityViewController() {
+        rootViewController.pushViewController(pickCityViewController, animated: true)
     }
 }

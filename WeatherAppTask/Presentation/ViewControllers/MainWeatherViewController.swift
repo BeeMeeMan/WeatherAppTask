@@ -30,7 +30,7 @@ class MainWeatherViewController: UIViewController {
         button.setImage(UIImage(named: "ic_place"), for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
         button.setTitleColor(UIColor.white, for: .normal)
-        button.addTarget(self, action: #selector(handleLocation), for: .touchUpInside)
+        button.addTarget(self, action: #selector(goToPickLocationOnMapView), for: .touchUpInside)
         
         return button
     }()
@@ -76,8 +76,12 @@ class MainWeatherViewController: UIViewController {
     
     // MARK: - Selectors
     
-    @objc func handleLocation() {
-        weatherListVM.handleSwitchViewButton()
+    @objc func goToPickLocationOnMapView() {
+        weatherListVM.handleSwitchToMap()
+    }
+    
+    @objc func goToPickCityView() {
+        weatherListVM.handleSwitchToCityPick()
     }
     
     @objc func refresh(sender: AnyObject) {
@@ -127,7 +131,7 @@ class MainWeatherViewController: UIViewController {
     
     private func configureNavigationBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftBarButton)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_my_location"), style: .done, target: self, action: #selector(handleLocation))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_my_location"), style: .done, target: self, action: #selector(goToPickLocationOnMapView))
     }
     
     private func configureViewWithVM() {
