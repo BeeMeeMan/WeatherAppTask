@@ -14,6 +14,7 @@ class MainFlowCoordinator: Coordinator {
     
     private lazy var mainWeatherViewController: MainWeatherViewController = {
         let networkService = NetworkService()
+        let addCityViewModel = AddCityViewModel(location: location)
         let weatherListViewModel = WeatherListViewModel(networkService: networkService)
         weatherListViewModel.handleSwitchToMap = { [weak self] in
             self?.goToPickOnMapLocationViewController()
@@ -21,7 +22,8 @@ class MainFlowCoordinator: Coordinator {
         weatherListViewModel.handleSwitchToCityPick = { [weak self] in
             self?.goToPickCityViewController()
         }
-        let vc = MainWeatherViewController(weatherListVM: weatherListViewModel)
+        let vc = MainWeatherViewController(weatherListVM: weatherListViewModel, addCityViewModel: addCityViewModel)
+        addCityViewModel.delegate = vc
         return vc
     }()
     

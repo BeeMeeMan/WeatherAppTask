@@ -6,13 +6,14 @@
 //
 
 import UIKit
+import MapKit
 
 private let reuseIdentifier = "WeatherCell"
 
 class MainWeatherViewController: UIViewController {
     
     // MARK: - Properties
-    
+    private var addCityViewModel: AddCityViewModel
     var weatherListVM: WeatherListViewModel
     private var selectedWeatherVM: WeatherViewModel? {
         didSet { configureViewWithVM() }
@@ -29,25 +30,21 @@ class MainWeatherViewController: UIViewController {
     
     // MARK: - Lifecycle
     
-    init(weatherListVM: WeatherListViewModel) {
+    init(weatherListVM: WeatherListViewModel, addCityViewModel: AddCityViewModel) {
         self.weatherListVM = weatherListVM
+        self.addCityViewModel = addCityViewModel
         super.init(nibName: nil, bundle: nil)
     }
     
     required convenience init?(coder: NSCoder) {
-        self.init(weatherListVM: WeatherListViewModel(networkService: NetworkService()))
+        self.init(weatherListVM: WeatherListViewModel(networkService: NetworkService()), addCityViewModel: AddCityViewModel())
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        weatherListVM.getWeather() { [weak self] isSuccess in
-            if isSuccess {
-                self?.configureViewWithListVM()
-            } else {
-                self?.configureViewWithListVM()
-            }
-        }
+        addCityViewModel.enableLocationServices()
+        addCityViewModel.getLocation()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -121,11 +118,11 @@ class MainWeatherViewController: UIViewController {
         DispatchQueue.main.async {
             self.leftBarButton.setTitle("  \(self.weatherListVM.cityName)", for: .normal)
             self.selectedWeatherVM = self.weatherListVM.getWeatherViewModel(at: 0)
-            self.tableView.reloadData()
             self.configureNavigationBar()
             self.verticalScrollView.setWeather(viewModel: self.weatherListVM.list)
             self.weatherListVM.list.indices.forEach { index in
                 (self.tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? WeatherCell)?.cellState = .inactive
+                self.tableView.reloadData()
             }
         }
     }
@@ -156,5 +153,20 @@ extension MainWeatherViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedWeatherVM = weatherListVM.getWeatherViewModel(at: indexPath.row)
         (tableView.cellForRow(at: indexPath) as? WeatherCell)?.cellState = .active
+    }
+}
+
+// MARK: - AddCityViewModelDelegate
+
+extension MainWeatherViewController: AddCityViewModelDelegate {
+    func addCityViewModel(get location: CLLocation?) {
+        DispatchQueue.main.async {
+            self.weatherListVM.setLocation(location)
+            self.weatherListVM.getWeather() { isSuccess in
+                if isSuccess {
+                    self.configureViewWithListVM()
+                }
+            }
+        }
     }
 }

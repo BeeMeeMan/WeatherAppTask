@@ -14,7 +14,7 @@ class PickOnMapLocationViewController: UIViewController {
     
     private var addCityViewModel: AddCityViewModel
     private let mapView = MKMapView()
-    private let locationManager = CLLocationManager()
+  
     
     // MARK: - Lifecycle
     
@@ -30,7 +30,6 @@ class PickOnMapLocationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        enableLocationServices()
     }
     
     // MARK: - Selectors
@@ -59,6 +58,20 @@ class PickOnMapLocationViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         mapView.frame = view.frame
+    }
+    
+    // MARK: - API
+    
+    func getUserLocation() {
+  
+        let userLocation = mapView.userLocation.coordinate
+        print("###")
+        print(userLocation)
+        addCityViewModel.handle(userLocation) { city in
+            DispatchQueue.main.async {
+                self.title = city
+            }
+        }
     }
     
     // MARK: - Helper Functions
@@ -94,35 +107,4 @@ class PickOnMapLocationViewController: UIViewController {
 //            let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
 //            self.mapView.setRegion(region, animated: true)
 //    }
-}
-
-// MARK: - CLLocationManagerDelegate
-
-extension PickOnMapLocationViewController: CLLocationManagerDelegate {
-    func enableLocationServices() {
-        locationManager.delegate = self
-        
-        switch CLLocationManager.authorizationStatus() {
-        case .notDetermined:
-            print("# Not determined")
-            locationManager.requestWhenInUseAuthorization()
-        case .restricted, .denied:
-            break
-        case .authorizedAlways:
-            print("# Auth always")
-            locationManager.startUpdatingLocation()
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        case .authorizedWhenInUse:
-            print("# Auth when in use")
-            locationManager.requestAlwaysAuthorization()
-        @unknown default:
-            break
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .authorizedWhenInUse {
-            locationManager.requestAlwaysAuthorization()
-        }
-    }
 }

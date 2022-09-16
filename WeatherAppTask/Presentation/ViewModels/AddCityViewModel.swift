@@ -8,10 +8,16 @@
 import Foundation
 import MapKit
 
-class AddCityViewModel {
-    var location: CLLocation?
+protocol AddCityViewModelDelegate: AnyObject {
+    func addCityViewModel(get location: CLLocation?)
+}
+
+class AddCityViewModel: NSObject {
+    private let locationManager = CLLocationManager()
     private var searchResults = [MKPlacemark]()
+    var location: CLLocation?
     
+    weak var delegate: AddCityViewModelDelegate?
     var handleGoBack: (CLLocation?) -> Void = { location in }
     
     init(location: CLLocation? = nil) {
@@ -26,6 +32,10 @@ class AddCityViewModel {
         if let location = searchResults[indexPath.row].location {
             self.location = location
         }
+    }
+    
+    func getLocation() {
+        locationManager.requestLocation()
     }
     
     func handle(_ locationCoordinate: CLLocationCoordinate2D, completion: @escaping(String) -> Void) {
@@ -69,5 +79,47 @@ class AddCityViewModel {
             
             completion()
         }
+    }
+}
+
+// MARK: - CLLocationManagerDelegate
+
+extension AddCityViewModel: CLLocationManagerDelegate {
+   
+    func enableLocationServices() {
+        locationManager.delegate = self
+        
+        switch CLLocationManager.authorizationStatus() {
+        case .notDetermined:
+            print("# Not determined")
+            locationManager.requestWhenInUseAuthorization()
+        case .restricted, .denied:
+            break
+        case .authorizedAlways:
+            print("# Auth always")
+            locationManager.startUpdatingLocation()
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        case .authorizedWhenInUse:
+            print("# Auth when in use")
+            locationManager.requestAlwaysAuthorization()
+        @unknown default:
+            break
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            locationManager.requestAlwaysAuthorization()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+        delegate?.addCityViewModel(get: location)
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error.localizedDescription)
     }
 }

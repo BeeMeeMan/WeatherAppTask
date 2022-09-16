@@ -28,17 +28,17 @@ extension WeatherListViewModel {
     }
     
     var list: [WeatherViewModel] {
-       return weatherList
+        return weatherList
     }
-
+    
     var isNoData: Bool {
         return weatherList.count == 0
     }
     
     func setLocation(_ location: CLLocation?) {
-            self.location = location
+        self.location = location
     }
-
+    
     func getWeather(completion: @escaping(Bool) -> Void) {
         guard let location = location else {
             completion(false)
@@ -64,7 +64,7 @@ extension WeatherListViewModel {
         if isNoData {
             return WeatherViewModel(weather: nil)
         } else {
-            return weatherList[index]
+            return getDayWeatherFromThreeHourInterval()[index]
         }
     }
     
