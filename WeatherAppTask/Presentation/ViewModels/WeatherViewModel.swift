@@ -7,7 +7,7 @@
 
 import Foundation
 
-class WeatherViewModel {
+struct WeatherViewModel {
     private let weather: List?
     private let noData: String = "n/a "
     
