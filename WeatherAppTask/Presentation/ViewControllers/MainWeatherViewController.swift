@@ -44,7 +44,6 @@ class MainWeatherViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         addCityViewModel.enableLocationServices()
-        addCityViewModel.getLocation()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

@@ -91,17 +91,16 @@ extension AddCityViewModel: CLLocationManagerDelegate {
         
         switch CLLocationManager.authorizationStatus() {
         case .notDetermined:
-            print("# Not determined")
             locationManager.requestWhenInUseAuthorization()
         case .restricted, .denied:
             break
         case .authorizedAlways:
-            print("# Auth always")
             locationManager.startUpdatingLocation()
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            getLocation()
         case .authorizedWhenInUse:
-            print("# Auth when in use")
             locationManager.requestAlwaysAuthorization()
+            getLocation()
         @unknown default:
             break
         }
