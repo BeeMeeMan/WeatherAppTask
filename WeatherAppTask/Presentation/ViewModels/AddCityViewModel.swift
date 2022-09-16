@@ -15,6 +15,7 @@ protocol AddCityViewModelDelegate: AnyObject {
 class AddCityViewModel: NSObject {
     private let locationManager = CLLocationManager()
     private var searchResults = [MKPlacemark]()
+    private var isFirstScreenLoad = true
     var location: CLLocation?
     
     weak var delegate: AddCityViewModelDelegate?
@@ -36,6 +37,7 @@ class AddCityViewModel: NSObject {
     
     func getLocation() {
         locationManager.requestLocation()
+        isFirstScreenLoad = false
     }
     
     func handle(_ locationCoordinate: CLLocationCoordinate2D, completion: @escaping(String) -> Void) {
@@ -53,8 +55,9 @@ class AddCityViewModel: NSObject {
     }
     
     func getSearchResult(at indexPath: IndexPath) -> String {
-        if let city = searchResults[indexPath.row].locality,
-           let country = searchResults[indexPath.row].country {
+        guard searchResults.indices.contains(indexPath.row) else { return "No data" }
+        if let city = searchResults[indexPath.row].locality {
+            let country = searchResults[indexPath.row].country ?? ""
             return "\(city)  \(country)"
         } else {
             return "No data"
@@ -85,7 +88,7 @@ class AddCityViewModel: NSObject {
 // MARK: - CLLocationManagerDelegate
 
 extension AddCityViewModel: CLLocationManagerDelegate {
-   
+    
     func enableLocationServices() {
         locationManager.delegate = self
         
@@ -95,12 +98,10 @@ extension AddCityViewModel: CLLocationManagerDelegate {
         case .restricted, .denied:
             break
         case .authorizedAlways:
-            locationManager.startUpdatingLocation()
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            getLocation()
+            if isFirstScreenLoad { getLocation() }
         case .authorizedWhenInUse:
             locationManager.requestAlwaysAuthorization()
-            getLocation()
+            if isFirstScreenLoad { getLocation() }
         @unknown default:
             break
         }
@@ -114,7 +115,7 @@ extension AddCityViewModel: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
-        delegate?.addCityViewModel(get: location)
+            delegate?.addCityViewModel(get: location)
         }
     }
     
