@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MapKit
 
 //enum NetworkError: Error {
 //    case decodingError
@@ -44,6 +45,18 @@ final class NetworkService {
 extension NetworkService {
     func getWeather(for city: String, completion: @escaping( WeatherListResponce?) -> Void) {
         if let weatherURL = NetworkConfig.Urls.urlForWeatherList(by: city) {
+            let resource = Resource<WeatherListResponce>(url: weatherURL) { data in
+                return try? JSONDecoder().decode(WeatherListResponce.self, from: data)
+            }
+            
+            NetworkService().load(resource: resource) { result in
+                completion(result)
+            }
+        }
+    }
+    
+    func getWeather(by location: CLLocation, completion: @escaping( WeatherListResponce?) -> Void) {
+        if let weatherURL = NetworkConfig.Urls.urlForWeatherList(by: location){
             let resource = Resource<WeatherListResponce>(url: weatherURL) { data in
                 return try? JSONDecoder().decode(WeatherListResponce.self, from: data)
             }

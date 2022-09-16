@@ -35,8 +35,8 @@ class PickCityViewController: UITableViewController {
     
     // MARK: - Selectors
     
-    @objc private func handlePickCity() { addCityViewModel.handleGoBack(addCityViewModel.city) }
-    @objc private func handleGoBack() { addCityViewModel.handleGoBack("") }
+    @objc private func handlePickCity() { addCityViewModel.handleGoBack(addCityViewModel.location) }
+    @objc private func handleGoBack() { addCityViewModel.handleGoBack(nil) }
     
     // MARK: - Helper Functions
     

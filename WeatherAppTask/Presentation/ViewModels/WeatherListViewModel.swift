@@ -6,11 +6,13 @@
 //
 
 import Foundation
+import CoreLocation
 
 class WeatherListViewModel {
     private var networkService: NetworkService
     private var weatherList: [WeatherViewModel] = []
-    private var city = "Kiev"
+    private var location: CLLocation?
+    private var city = ""
     
     var handleSwitchToMap: () -> Void = {}
     var handleSwitchToCityPick: () -> Void = {}
@@ -19,10 +21,8 @@ class WeatherListViewModel {
         self.networkService = networkService
     }
     
-    func setCity(_ name: String) {
-        if !name.isEmpty {
-        city = name
-        }
+    func setLocation(_ location: CLLocation?) {
+            self.location = location
     }
 }
 
@@ -41,9 +41,15 @@ extension WeatherListViewModel {
     }
 
     func getWeather(completion: @escaping(Bool) -> Void) {
-        networkService.getWeather(for: city) { responce in
+        guard let location = location else {
+            completion(false)
+            return
+        }
+        
+        networkService.getWeather(by: location) { responce in
             if let responce = responce {
                 self.weatherList = responce.list.map(WeatherViewModel.init)
+                self.city = responce.city.name
                 completion(true)
             } else {
                 completion(false)

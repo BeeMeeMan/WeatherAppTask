@@ -12,19 +12,19 @@ class PickOnMapLocationViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var pickPositionViewModel: AddCityViewModel
+    private var addCityViewModel: AddCityViewModel
     private let mapView = MKMapView()
     private let locationManager = CLLocationManager()
     
     // MARK: - Lifecycle
     
-    init(pickPositionViewModel: AddCityViewModel) {
-        self.pickPositionViewModel = pickPositionViewModel
+    init(addCityViewModel: AddCityViewModel) {
+        self.addCityViewModel = addCityViewModel
         super.init(nibName: nil, bundle: nil)
     }
     
     required convenience init?(coder: NSCoder) {
-        self.init(pickPositionViewModel: AddCityViewModel())
+        self.init(addCityViewModel: AddCityViewModel())
     }
     
     override func viewDidLoad() {
@@ -35,8 +35,8 @@ class PickOnMapLocationViewController: UIViewController {
     
     // MARK: - Selectors
     
-    @objc private func handlePickCity() { pickPositionViewModel.handleGoBack("") }
-    @objc private func handleGoBack() { pickPositionViewModel.handleGoBack("") }
+    @objc private func handlePickCity() { addCityViewModel.handleGoBack(addCityViewModel.location) }
+    @objc private func handleGoBack() { addCityViewModel.handleGoBack(nil) }
     @objc private func revealRegionDetailsWithLongPressOnMap(sender: UILongPressGestureRecognizer) {
         if sender.state != UIGestureRecognizer.State.began { return }
         removeAnnotationsAndOverlays()
@@ -49,23 +49,11 @@ class PickOnMapLocationViewController: UIViewController {
         mapView.selectAnnotation(annotation, animated: true)
         mapView.addAnnotation(annotation)
         
-        let geoCoder = CLGeocoder()
-        let location = CLLocation(latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude)
-        geoCoder.reverseGeocodeLocation(location, completionHandler:
-                                            {
-            placemarks, error -> Void in
-            
-            // Place details
-            guard let placeMark = placemarks?.first else { return }
-            // City
-            if let city = placeMark.subAdministrativeArea {
+        addCityViewModel.handle(locationCoordinate) { city in
+            DispatchQueue.main.async {
                 self.title = city
             }
-            // Country
-            if let country = placeMark.country {
-                print(country)
-            }
-        })
+        }
     }
     
     // MARK: - Helper Functions
@@ -79,7 +67,7 @@ class PickOnMapLocationViewController: UIViewController {
         view.addSubview(mapView)
         mapView.frame = view.frame
         mapView.showsUserLocation = true
-        mapView.userTrackingMode = .follow
+        setLocation() 
         
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(revealRegionDetailsWithLongPressOnMap))
         mapView.addGestureRecognizer(longPressRecognizer)
@@ -93,6 +81,14 @@ class PickOnMapLocationViewController: UIViewController {
     private func removeAnnotationsAndOverlays() {
         mapView.annotations.forEach { annotation in
             mapView.removeAnnotation(annotation)
+        }
+    }
+    
+    private func setLocation() {
+        if let location = addCityViewModel.location {
+            let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+            let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+            self.mapView.setRegion(region, animated: true)
         }
     }
 }

@@ -68,7 +68,7 @@ extension WeatherViewModel {
     
     var time: String {
         guard let weather = weather else { return noData }
-        return weather.dt.getDateWithFormat("HH:mm")
+        return "\(weather.dt.getDateWithFormat("HH"))⁰⁰"
     }
 }
 

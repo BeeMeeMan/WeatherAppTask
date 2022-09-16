@@ -9,21 +9,37 @@ import Foundation
 import MapKit
 
 class AddCityViewModel {
-    var city = "Kiev"
+    var location: CLLocation?
     private var searchResults = [MKPlacemark]()
     
-    var handleGoBack: (String) -> Void = { city in }
+    var handleGoBack: (CLLocation?) -> Void = { location in }
     
-    init() { }
+    init(location: CLLocation? = nil) {
+        self.location = location
+    }
     
     func numberOfRowsInSection(section: Int) -> Int {
         return searchResults.count
     }
     
     func addCity(at indexPath: IndexPath) {
-        if let city = searchResults[indexPath.row].locality {
-            self.city = city
+        if let location = searchResults[indexPath.row].location {
+            self.location = location
         }
+    }
+    
+    func handle(_ locationCoordinate: CLLocationCoordinate2D, completion: @escaping(String) -> Void) {
+        let geoCoder = CLGeocoder()
+        let location = CLLocation(latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude)
+        self.location = location
+        geoCoder.reverseGeocodeLocation(location, completionHandler:
+                                            {
+            placemarks, error -> Void in
+            guard let placeMark = placemarks?.first else { return }
+            if let city = placeMark.subAdministrativeArea {
+                completion(city)
+            }
+        })
     }
     
     func getSearchResult(at indexPath: IndexPath) -> String {
