@@ -20,14 +20,9 @@ class WeatherListViewModel {
     init(networkService: NetworkService) {
         self.networkService = networkService
     }
-    
-    func setLocation(_ location: CLLocation?) {
-            self.location = location
-    }
 }
 
 extension WeatherListViewModel {
-    
     var cityName: String {
         city
     }
@@ -38,6 +33,10 @@ extension WeatherListViewModel {
 
     var isNoData: Bool {
         return weatherList.count == 0
+    }
+    
+    func setLocation(_ location: CLLocation?) {
+            self.location = location
     }
 
     func getWeather(completion: @escaping(Bool) -> Void) {

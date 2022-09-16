@@ -88,11 +88,11 @@ fileprivate extension Int {
     }
     
     func getDateWithFormat(_ format: String) -> String {
-            let utcDateFormatter = DateFormatter()
-            utcDateFormatter.dateFormat = format
-            
-            let date = Date(timeIntervalSince1970: TimeInterval(self))
-
-            return utcDateFormatter.string(from: date)
+        let utcDateFormatter = DateFormatter()
+        utcDateFormatter.dateFormat = format
+        
+        let date = Date(timeIntervalSince1970: TimeInterval(self))
+        
+        return utcDateFormatter.string(from: date)
     }
 }

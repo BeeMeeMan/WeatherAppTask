@@ -12,7 +12,7 @@ private let reuseIdentifier = "WeatherCell"
 class MainWeatherViewController: UIViewController {
     
     // MARK: - Properties
-
+    
     var weatherListVM: WeatherListViewModel
     private var selectedWeatherVM: WeatherViewModel? {
         didSet { configureViewWithVM() }
@@ -26,7 +26,7 @@ class MainWeatherViewController: UIViewController {
         .lzSetImage(UIImage(named: "ic_place"))
         .lzAddTarget(self, selector: #selector(goToPickLocationOnMapView))
         .lzSetTitle(color: .white, font: .systemFont(ofSize: 24))
-
+    
     // MARK: - Lifecycle
     
     init(weatherListVM: WeatherListViewModel) {
@@ -42,7 +42,11 @@ class MainWeatherViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         weatherListVM.getWeather() { [weak self] isSuccess in
-            if isSuccess { self?.configureViewWithListVM() }
+            if isSuccess {
+                self?.configureViewWithListVM()
+            } else {
+                self?.configureViewWithListVM()
+            }
         }
     }
     

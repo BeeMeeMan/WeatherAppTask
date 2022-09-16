@@ -113,6 +113,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8A4AEEF328D446AA00AC2814 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8A6B1C4128D23CED001A685B /* WindDirectionTests.swift */,
+				8A6B1C4728D24916001A685B /* WeatherTypeTests.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		8A6B1BEB28D2222A001A685B = {
 			isa = PBXGroup;
 			children = (
@@ -248,8 +257,7 @@
 		8A6B1C4428D23F97001A685B /* ModelsTests */ = {
 			isa = PBXGroup;
 			children = (
-				8A6B1C4128D23CED001A685B /* WindDirectionTests.swift */,
-				8A6B1C4728D24916001A685B /* WeatherTypeTests.swift */,
+				8A4AEEF328D446AA00AC2814 /* Models */,
 			);
 			path = ModelsTests;
 			sourceTree = "<group>";

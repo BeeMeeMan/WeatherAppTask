@@ -56,6 +56,11 @@ class PickOnMapLocationViewController: UIViewController {
         }
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        mapView.frame = view.frame
+    }
+    
     // MARK: - Helper Functions
     
     private func configureUI() {
@@ -67,7 +72,7 @@ class PickOnMapLocationViewController: UIViewController {
         view.addSubview(mapView)
         mapView.frame = view.frame
         mapView.showsUserLocation = true
-        setLocation() 
+        mapView.userTrackingMode = .follow
         
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(revealRegionDetailsWithLongPressOnMap))
         mapView.addGestureRecognizer(longPressRecognizer)
@@ -83,14 +88,12 @@ class PickOnMapLocationViewController: UIViewController {
             mapView.removeAnnotation(annotation)
         }
     }
-    
-    private func setLocation() {
-        if let location = addCityViewModel.location {
-            let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-            let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-            self.mapView.setRegion(region, animated: true)
-        }
-    }
+//
+//    private func setLocation(_ location: CLLocation) {
+//            let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+//            let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+//            self.mapView.setRegion(region, animated: true)
+//    }
 }
 
 // MARK: - CLLocationManagerDelegate
