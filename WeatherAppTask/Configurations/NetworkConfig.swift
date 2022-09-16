@@ -7,7 +7,6 @@
 
 import Foundation
 //https://api.openweathermap.org/data/2.5/forecast?q=Kharkiv&appid=935816ca51975865a24c12784fe691a1
-
 //https:api.openweathermap.org/data/2.5/forecast?q=Kharkiv&appid=935816ca51975865a24c12784fe691a1
 
 enum NetworkConfig {

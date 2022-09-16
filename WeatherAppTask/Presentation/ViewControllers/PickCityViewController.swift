@@ -14,57 +14,42 @@ class PickCityViewController: UITableViewController {
     
     // MARK: - Properties
     
-    private var pickPositionViewModel: PickPositionViewModel
-    private lazy var searchBar: UISearchBar = UISearchBar()
-    private var searchResults = [MKPlacemark]() {
-        didSet {
-            tableView.reloadData()
-        }
-    }
+    private var addCityViewModel: AddCityViewModel
+    private let searchBar: UISearchBar = UISearchBar()
     
     // MARK: - Lifecycle
     
-    init(pickPositionViewModel: PickPositionViewModel) {
-        self.pickPositionViewModel = pickPositionViewModel
+    init(addCityViewModel: AddCityViewModel) {
+        self.addCityViewModel = addCityViewModel
         super.init(nibName: nil, bundle: nil)
     }
     
     required convenience init?(coder: NSCoder) {
-        self.init(pickPositionViewModel: PickPositionViewModel())
+        self.init(addCityViewModel: AddCityViewModel())
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
-        tableView.separatorStyle = .none
     }
     
     // MARK: - Selectors
     
-    @objc private func handlePickCity() {
-        print("#handlePickCity")
-    }
-    
-    @objc private func handleGoBack() {
-        pickPositionViewModel.handleGoBack()
-    }
-    
-    // MARK: - API
+    @objc private func handlePickCity() { addCityViewModel.handleGoBack(addCityViewModel.city) }
+    @objc private func handleGoBack() { addCityViewModel.handleGoBack("") }
     
     // MARK: - Helper Functions
     
     private func configureUI() {
         configureNavigationBar()
+        configureSearchController()
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+        tableView.separatorStyle = .none
     }
     
     private func configureNavigationBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_search"), style: .done, target: self, action: #selector(handlePickCity))
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_back"), style: .done, target: self, action: #selector(handleGoBack))
-        
-        configureSearchController()
     }
     
     private func configureSearchController() {
@@ -84,16 +69,12 @@ class PickCityViewController: UITableViewController {
 
 extension PickCityViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return searchResults.count
+        return addCityViewModel.numberOfRowsInSection(section: section)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
-       if let city = searchResults[indexPath.row].locality,
-          let country = searchResults[indexPath.row].country {
-        cell.textLabel?.text = "\(city)  \(country)"
-       }
+        cell.textLabel?.text = addCityViewModel.getSearchResult(at: indexPath)
         cell.textLabel?.textAlignment = .center
         cell.textLabel?.font = UIFont.systemFont(ofSize: 24)
         
@@ -104,12 +85,8 @@ extension PickCityViewController {
 // MARK: - Table view delegates
 
 extension PickCityViewController {
-    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-
-    }
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        addCityViewModel.addCity(at: indexPath)
     }
 }
 
@@ -117,31 +94,8 @@ extension PickCityViewController {
 
 extension PickCityViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchBy(naturalLanguageQuery: searchText) { results in
-            self.searchResults = results
-        }
-    }
-    
-}
-
-// MARK: - Helpers
-
-private extension PickCityViewController {
-    func searchBy(naturalLanguageQuery: String, completion: @escaping([MKPlacemark]) -> Void) {
-        var results = [MKPlacemark]()
-        
-        let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = naturalLanguageQuery
-        
-        let search = MKLocalSearch(request: request)
-        search.start { response, error in
-            guard let response = response else { return }
-            
-            response.mapItems.forEach { item in
-                results.append(item.placemark)
-            }
-            
-            completion(results)
+        addCityViewModel.searchBy(searchText: searchText) { [weak self] in
+            self?.tableView.reloadDataOnMainThread()
         }
     }
 }

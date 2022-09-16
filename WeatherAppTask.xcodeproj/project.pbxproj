@@ -39,7 +39,10 @@
 		8A6B1C5C28D265B1001A685B /* InfoContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B1C5B28D265B1001A685B /* InfoContainerView.swift */; };
 		8A6B1C5E28D27127001A685B /* UIView+Anchors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B1C5D28D27127001A685B /* UIView+Anchors.swift */; };
 		8AB8B98D28D3A48000E83A92 /* PickCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8B98C28D3A48000E83A92 /* PickCityViewController.swift */; };
-		8AB8B98F28D3A98600E83A92 /* PickPositionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8B98E28D3A98600E83A92 /* PickPositionViewModel.swift */; };
+		8AB8B98F28D3A98600E83A92 /* AddCityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8B98E28D3A98600E83A92 /* AddCityViewModel.swift */; };
+		8AB8B99428D3CCB500E83A92 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8B99328D3CCB500E83A92 /* UIButton+Extensions.swift */; };
+		8AB8B99628D3D13E00E83A92 /* UIStackView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8B99528D3D13E00E83A92 /* UIStackView+Extensions.swift */; };
+		8AB8B99828D3D65500E83A92 /* UITablleView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8B99728D3D65500E83A92 /* UITablleView+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,7 +89,10 @@
 		8A6B1C5B28D265B1001A685B /* InfoContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoContainerView.swift; sourceTree = "<group>"; };
 		8A6B1C5D28D27127001A685B /* UIView+Anchors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Anchors.swift"; sourceTree = "<group>"; };
 		8AB8B98C28D3A48000E83A92 /* PickCityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickCityViewController.swift; sourceTree = "<group>"; };
-		8AB8B98E28D3A98600E83A92 /* PickPositionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickPositionViewModel.swift; sourceTree = "<group>"; };
+		8AB8B98E28D3A98600E83A92 /* AddCityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCityViewModel.swift; sourceTree = "<group>"; };
+		8AB8B99328D3CCB500E83A92 /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
+		8AB8B99528D3D13E00E83A92 /* UIStackView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extensions.swift"; sourceTree = "<group>"; };
+		8AB8B99728D3D65500E83A92 /* UITablleView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITablleView+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +167,7 @@
 		8A6B1C1128D22951001A685B /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
+				8A6B1C4C28D256BC001A685B /* NetworkConfig.swift */,
 				8A6B1C0528D2222B001A685B /* Info.plist */,
 			);
 			path = Configurations;
@@ -195,6 +202,9 @@
 				8A3BC15228D361F2008AE012 /* UILabel+Exteniosns.swift */,
 				8A3BC15428D363A0008AE012 /* UIImageView+Extensions.swift */,
 				8A3BC15928D395C3008AE012 /* UIScreen+Extensions.swift */,
+				8AB8B99328D3CCB500E83A92 /* UIButton+Extensions.swift */,
+				8AB8B99528D3D13E00E83A92 /* UIStackView+Extensions.swift */,
+				8AB8B99728D3D65500E83A92 /* UITablleView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -202,7 +212,6 @@
 		8A6B1C2328D22E3A001A685B /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				8A6B1C4C28D256BC001A685B /* NetworkConfig.swift */,
 				8A6B1C2428D22E59001A685B /* NetworkService.swift */,
 			);
 			path = Services;
@@ -223,7 +232,7 @@
 			children = (
 				8A6B1C4A28D24EB7001A685B /* WeatherListViewModel.swift */,
 				8A6B1C2D28D2310E001A685B /* WeatherViewModel.swift */,
-				8AB8B98E28D3A98600E83A92 /* PickPositionViewModel.swift */,
+				8AB8B98E28D3A98600E83A92 /* AddCityViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -368,6 +377,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AB8B98D28D3A48000E83A92 /* PickCityViewController.swift in Sources */,
+				8AB8B99428D3CCB500E83A92 /* UIButton+Extensions.swift in Sources */,
 				8A6B1C2B28D22F7D001A685B /* String+Extensions.swift in Sources */,
 				8A3BC15028D361A4008AE012 /* WeatherDetailView.swift in Sources */,
 				8A3BC15528D363A0008AE012 /* UIImageView+Extensions.swift in Sources */,
@@ -375,12 +385,14 @@
 				8A6B1C1628D22A1C001A685B /* AppFlowCoordinator.swift in Sources */,
 				8A6B1BF828D2222A001A685B /* AppDelegate.swift in Sources */,
 				8A6B1C5C28D265B1001A685B /* InfoContainerView.swift in Sources */,
-				8AB8B98F28D3A98600E83A92 /* PickPositionViewModel.swift in Sources */,
+				8AB8B99628D3D13E00E83A92 /* UIStackView+Extensions.swift in Sources */,
+				8AB8B98F28D3A98600E83A92 /* AddCityViewModel.swift in Sources */,
 				8A6B1C4B28D24EB7001A685B /* WeatherListViewModel.swift in Sources */,
 				8A3BC14E28D358C0008AE012 /* WeatherCell.swift in Sources */,
 				8A3BC15C28D39720008AE012 /* PickOnMapLocationViewController.swift in Sources */,
 				8A6B1C2E28D2310E001A685B /* WeatherViewModel.swift in Sources */,
 				8A6B1C2528D22E59001A685B /* NetworkService.swift in Sources */,
+				8AB8B99828D3D65500E83A92 /* UITablleView+Extensions.swift in Sources */,
 				8A6B1C3128D2375A001A685B /* WindDirection.swift in Sources */,
 				8A6B1BFA28D2222A001A685B /* SceneDelegate.swift in Sources */,
 				8A3BC15A28D395C3008AE012 /* UIScreen+Extensions.swift in Sources */,

@@ -25,12 +25,11 @@ class InfoContainerView: UIView {
     
     // MARK: - Properties
     
-    private let iconWidth: CGFloat = 14
-    private let iconHeight: CGFloat = 20
+    private let iconSize: CGSize = CGSize(width: 14, height: 20)
     private var weatherVM: WeatherViewModel?
     private let infoContainerType: InfoContainerType
-    private lazy var iconImageView = UIImageView.imageView(height: iconHeight, width: iconWidth)
-    private lazy var windImageView = UIImageView.imageView(height: iconHeight, width: iconWidth)
+    private lazy var iconImageView = UIImageView.imageView(size: iconSize)
+    private lazy var windImageView = UIImageView.imageView(size: iconSize)
     private lazy var label = UILabel.label(withFont: 18, textColor: .white)
 
     // MARK: - Lifecycle
@@ -41,10 +40,7 @@ class InfoContainerView: UIView {
         super.init(frame: .zero)
         
         iconImageView.image = UIImage(named: containerType.iconName)
-        let stack = UIStackView(arrangedSubviews: [iconImageView, label,windImageView])
-        stack.axis = .horizontal
-        stack.distribution = .fill
-        stack.spacing = 4
+        let stack = UIStackView.hStack(subviews: [iconImageView, label, windImageView], spacing: 4)
         addSubview(stack)
         stack.pinTo(view: self)
     }

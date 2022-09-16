@@ -17,26 +17,33 @@ class WeatherCell: UITableViewCell {
     // MARK: - Properties
     
     var cellState: CellState = .inactive {
-        didSet {
-            configureUI()
-        }
+        didSet { configureUI() }
     }
     
     var weatherVM: WeatherViewModel? {
-        didSet {
-            configureUI()
-        }
+        didSet { configureUI() }
     }
     
     private let dayLabel = UILabel.label(withFont: 28)
     private let tempLabel = UILabel.label(withFont: 28)
     private let iconImageView = UIImageView.imageView(height: 30, width: 30)
+    private let newBackgroundView = UIView()
     
     // MARK: - Lifecycle
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = .white
+        backgroundColor = .clear
+        selectionStyle = .none
+        
+        addSubview(newBackgroundView)
+        newBackgroundView.anchor(top: topAnchor,
+                                 bottom: bottomAnchor,
+                                 left: leftAnchor,
+                                 right: rightAnchor,
+                                 paddingTop: 5,
+                                 paddingBottom: 5)
+        newBackgroundView.backgroundColor = .white
         
         addSubview(dayLabel)
         dayLabel.center(by: .yAxis, inView: self)
@@ -48,13 +55,12 @@ class WeatherCell: UITableViewCell {
         
         addSubview(tempLabel)
         tempLabel.center(by: .allAxis, inView: self)
-        selectionStyle = .none
-        
         
         layer.shadowColor = UIColor.CustomColor.lightBlue.cgColor
         layer.shadowRadius = 15
-        layer.shadowOffset = CGSize(width: 3, height: 3)
-        layer.masksToBounds = false
+        layer.shadowOffset = CGSize(width: 0, height: 0)
+        layer.masksToBounds = true
+        layer.shouldRasterize = true
     }
     
     required init?(coder: NSCoder) {

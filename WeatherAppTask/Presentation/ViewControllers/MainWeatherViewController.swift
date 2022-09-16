@@ -13,35 +13,19 @@ class MainWeatherViewController: UIViewController {
     
     // MARK: - Properties
 
-    private var weatherListVM: WeatherListViewModel
+    var weatherListVM: WeatherListViewModel
     private var selectedWeatherVM: WeatherViewModel? {
-        didSet {
-            configureViewWithVM()
-        }
+        didSet { configureViewWithVM() }
     }
     
     private let tableView = UITableView()
     private let refreshControl = UIRefreshControl()
-    private lazy var weatherInfoHeightAnchor = weatherInfoView.heightAnchor.constraint(equalToConstant: 250)
-    private lazy var weatherScrollViewHeightAnchor = weatherInfoView.heightAnchor.constraint(equalToConstant: 140)
-    
-    private lazy var leftBarButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "ic_place"), for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.addTarget(self, action: #selector(goToPickLocationOnMapView), for: .touchUpInside)
-        
-        return button
-    }()
-    
-    private lazy var weatherInfoView: WeatherInfoView = {
-        let weatherInfoView = WeatherInfoView(weatherVM: weatherListVM.getWeatherViewModel(at: 0))
-        
-        return weatherInfoView
-    }()
-    
-    private lazy var verticalScrollView = WeatherScrollView(weatherListVM: [])
+    private lazy var weatherInfoView = WeatherInfoView(weatherVM: weatherListVM.getWeatherViewModel(at: 0))
+    private lazy var verticalScrollView = WeatherScrollView(weatherListVM: weatherListVM.list)
+    private lazy var leftBarButton = UIButton.button()
+        .lzSetImage(UIImage(named: "ic_place"))
+        .lzAddTarget(self, selector: #selector(goToPickLocationOnMapView))
+        .lzSetTitle(color: .white, font: .systemFont(ofSize: 24))
 
     // MARK: - Lifecycle
     
@@ -56,34 +40,21 @@ class MainWeatherViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        weatherInfoHeightAnchor.isActive = UIScreen.height > UIScreen.width ? true : false
-        weatherScrollViewHeightAnchor.isActive = UIScreen.height > UIScreen.width ? false : true
-        
         configureUI()
-        weatherListVM.getWeather() { isSuccess in
-            if isSuccess {
-                self.configureViewWithListVM()
-            }
-            
+        weatherListVM.getWeather() { [weak self] isSuccess in
+            if isSuccess { self?.configureViewWithListVM() }
         }
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        weatherInfoHeightAnchor.isActive = UIScreen.isPortrait(by: traitCollection) ? true : false
-        weatherScrollViewHeightAnchor.isActive = UIScreen.isPortrait(by: traitCollection) ? false : true
+        weatherInfoView.switchStateTo(UIScreen.getOrientation(by: traitCollection))
     }
     
     // MARK: - Selectors
     
-    @objc func goToPickLocationOnMapView() {
-        weatherListVM.handleSwitchToMap()
-    }
-    
-    @objc func goToPickCityView() {
-        weatherListVM.handleSwitchToCityPick()
-    }
-    
+    @objc func goToPickLocationOnMapView() { weatherListVM.handleSwitchToMap() }
+    @objc func goToPickCityView() { weatherListVM.handleSwitchToCityPick() }
     @objc func refresh(sender: AnyObject) {
         weatherListVM.getWeather() { isSuccess in
             if isSuccess {
@@ -98,6 +69,7 @@ class MainWeatherViewController: UIViewController {
     private func configureUI() {
         configureTableView()
         configureNavigationBar()
+        weatherInfoView.switchStateTo(UIScreen.getOrientation())
         
         view.addSubview(weatherInfoView)
         weatherInfoView.center(by: .xAxis, inView: view)
@@ -141,7 +113,7 @@ class MainWeatherViewController: UIViewController {
         }
     }
     
-    private func configureViewWithListVM() {
+    func configureViewWithListVM() {
         DispatchQueue.main.async {
             self.leftBarButton.setTitle("  \(self.weatherListVM.cityName)", for: .normal)
             self.selectedWeatherVM = self.weatherListVM.getWeatherViewModel(at: 0)

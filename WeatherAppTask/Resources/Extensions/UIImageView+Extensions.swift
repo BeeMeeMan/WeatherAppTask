@@ -14,4 +14,11 @@ extension UIImageView {
         
         return image
     }
+    
+    static func imageView(size: CGSize) -> UIImageView {
+        let image = UIImageView()
+        image.setDimensions(height: size.height, width: size.width)
+        
+        return image
+    }
 }

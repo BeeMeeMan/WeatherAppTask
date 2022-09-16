@@ -13,6 +13,7 @@ class WeatherInfoView: UIView {
     
     private let weatherImage = UIImageView()
     private let dateLabel = UILabel.label(withFont: 12, textColor: .white)
+    private lazy var infoContainersStack = UIStackView(arrangedSubviews: infoContainers)
     private lazy var infoContainers: [InfoContainerView] = {
         var infoContainers = [InfoContainerView]()
         
@@ -23,6 +24,14 @@ class WeatherInfoView: UIView {
 
         return infoContainers
     }()
+    
+    private lazy var heightAnchorInPortrait = heightAnchor.constraint(equalToConstant: 250)
+    private lazy var heightAnchorInLandscape = heightAnchor.constraint(equalToConstant: 100)
+    
+    private lazy var weatherImageHeightAnchorInPortrait = weatherImage.heightAnchor.constraint(equalToConstant: 140)
+    private lazy var weatherImageHeightAnchorInLandscape = weatherImage.heightAnchor.constraint(equalToConstant: 70)
+    private lazy var weatherImageWidthAnchorInPortrait = weatherImage.widthAnchor.constraint(equalToConstant: 140)
+    private lazy var weatherImageWidthAnchorInLandscape = weatherImage.widthAnchor.constraint(equalToConstant: 70)
     
     // MARK: - Lifecycle
     
@@ -49,6 +58,27 @@ class WeatherInfoView: UIView {
         dateLabel.text = viewModel.date
     }
     
+    func switchStateTo(_ state: DeviceOrientation) {
+        switch state {
+        case .portrait:
+            heightAnchorInPortrait.isActive = true
+            weatherImageHeightAnchorInPortrait.isActive = true
+            weatherImageWidthAnchorInPortrait.isActive = true
+            heightAnchorInLandscape.isActive = false
+            weatherImageHeightAnchorInLandscape.isActive = false
+            weatherImageWidthAnchorInLandscape.isActive = false
+            self.infoContainersStack.axis = .vertical
+        case .landscape:
+            heightAnchorInPortrait.isActive = false
+            weatherImageHeightAnchorInPortrait.isActive = false
+            weatherImageWidthAnchorInPortrait.isActive = false
+            heightAnchorInLandscape.isActive = true
+            weatherImageHeightAnchorInLandscape.isActive = true
+            weatherImageWidthAnchorInLandscape.isActive = true
+            self.infoContainersStack.axis = .horizontal
+        }
+    }
+    
     // MARK: - Helper functions
     
     private func configureUI() {
@@ -64,13 +94,13 @@ class WeatherInfoView: UIView {
         weatherImage.center(by: .yAxis, inView: self)
         weatherImage.anchor(top: dateLabel.bottomAnchor,
                             left: leftAnchor,
-                            paddingLeft: 40,
-                            width: 140,
-                            height: 140)
+                            paddingLeft: 40)
 
-        let infoContainersStack = UIStackView(arrangedSubviews: infoContainers)
-        infoContainersStack.axis = .vertical
+        
         infoContainersStack.spacing = 16
+        infoContainersStack.distribution = .fill
+        infoContainersStack.axis = .vertical
+       
         addSubview(infoContainersStack)
         infoContainersStack.center(by: .yAxis, inView: self)
         infoContainersStack.anchor(left: weatherImage.rightAnchor,

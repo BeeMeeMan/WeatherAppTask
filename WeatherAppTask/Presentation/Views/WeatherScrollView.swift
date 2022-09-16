@@ -30,21 +30,15 @@ class WeatherScrollView: UIScrollView {
     
     func setWeather(viewModel: [WeatherViewModel]) {
         weatherListVM = viewModel
-        
+    
         subviews.map { $0.removeFromSuperview() }
         var viewStack = [UIView]()
-        print(weatherListVM.count)
         weatherListVM.forEach { weatherVM in
             let view = WeatherDetailView(weatherVM: weatherVM)
             viewStack.append(view)
         }
         
-        let stack = UIStackView(arrangedSubviews: viewStack)
-//        stack.setDimensions(height: 50, width: 1000)
-        stack.axis = .horizontal
-        stack.spacing = 12
-        stack.distribution = .fillEqually
-        
+        let stack = UIStackView.hStack(subviews: viewStack, spacing: 12, distribution: .fillEqually)
         addSubview(stack)
         stack.pinTo(view: self)
     }

@@ -11,6 +11,7 @@ class WeatherListViewModel {
     private var networkService: NetworkService
     private var weatherList: [WeatherViewModel] = []
     private var city = "Kiev"
+    
     var handleSwitchToMap: () -> Void = {}
     var handleSwitchToCityPick: () -> Void = {}
     
@@ -19,7 +20,9 @@ class WeatherListViewModel {
     }
     
     func setCity(_ name: String) {
+        if !name.isEmpty {
         city = name
+        }
     }
 }
 

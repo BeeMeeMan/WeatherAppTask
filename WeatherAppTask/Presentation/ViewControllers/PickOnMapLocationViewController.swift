@@ -12,43 +12,32 @@ class PickOnMapLocationViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var pickPositionViewModel: PickPositionViewModel
-    
+    private var pickPositionViewModel: AddCityViewModel
     private let mapView = MKMapView()
     private let locationManager = CLLocationManager()
     
-    
-    
     // MARK: - Lifecycle
     
-    init(pickPositionViewModel: PickPositionViewModel) {
+    init(pickPositionViewModel: AddCityViewModel) {
         self.pickPositionViewModel = pickPositionViewModel
         super.init(nibName: nil, bundle: nil)
     }
     
     required convenience init?(coder: NSCoder) {
-        self.init(pickPositionViewModel: PickPositionViewModel())
+        self.init(pickPositionViewModel: AddCityViewModel())
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .blue
         configureUI()
         enableLocationServices()
-        configureNavigationBar()
     }
     
     // MARK: - Selectors
     
-    @objc private func handlePickCity() {
-        print("#handlePickCity")
-    }
-    
-    @objc private func handleGoBack() {
-        pickPositionViewModel.handleGoBack()
-    }
-    
-    @objc func revealRegionDetailsWithLongPressOnMap(sender: UILongPressGestureRecognizer) {
+    @objc private func handlePickCity() { pickPositionViewModel.handleGoBack("") }
+    @objc private func handleGoBack() { pickPositionViewModel.handleGoBack("") }
+    @objc private func revealRegionDetailsWithLongPressOnMap(sender: UILongPressGestureRecognizer) {
         if sender.state != UIGestureRecognizer.State.began { return }
         removeAnnotationsAndOverlays()
         let touchLocation = sender.location(in: mapView)
@@ -79,13 +68,11 @@ class PickOnMapLocationViewController: UIViewController {
         })
     }
     
-    // MARK: - API
-    
     // MARK: - Helper Functions
     
     private func configureUI() {
         configureMapView()
-        
+        configureNavigationBar()
     }
     
     private func configureMapView() {
@@ -93,7 +80,6 @@ class PickOnMapLocationViewController: UIViewController {
         mapView.frame = view.frame
         mapView.showsUserLocation = true
         mapView.userTrackingMode = .follow
-        mapView.delegate = self
         
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(revealRegionDetailsWithLongPressOnMap))
         mapView.addGestureRecognizer(longPressRecognizer)
@@ -104,14 +90,14 @@ class PickOnMapLocationViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_back"), style: .done, target: self, action: #selector(handleGoBack))
     }
     
-    func removeAnnotationsAndOverlays() {
+    private func removeAnnotationsAndOverlays() {
         mapView.annotations.forEach { annotation in
             mapView.removeAnnotation(annotation)
         }
     }
 }
 
-// MARK: - LocationServises
+// MARK: - CLLocationManagerDelegate
 
 extension PickOnMapLocationViewController: CLLocationManagerDelegate {
     func enableLocationServices() {
@@ -139,22 +125,5 @@ extension PickOnMapLocationViewController: CLLocationManagerDelegate {
         if status == .authorizedWhenInUse {
             locationManager.requestAlwaysAuthorization()
         }
-    }
-}
-
-// MARK: - UISearchResultsUpdating
-
-extension PickOnMapLocationViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let searchText = searchController.searchBar.text?.lowercased() else { return }
-        
-    }
-}
-
-// MARK: - MKMapViewDelegate
-
-extension PickOnMapLocationViewController: MKMapViewDelegate {
-    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
-        
     }
 }
