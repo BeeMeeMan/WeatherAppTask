@@ -26,13 +26,12 @@ class WeatherInfoView: UIView {
         return infoContainers
     }()
     
-    private lazy var heightAnchorInPortrait = heightAnchor.constraint(equalToConstant: 250)
-    private lazy var heightAnchorInLandscape = heightAnchor.constraint(equalToConstant: 100)
-    
-    private lazy var weatherImageHeightAnchorInPortrait = weatherImage.heightAnchor.constraint(equalToConstant: 140)
-    private lazy var weatherImageHeightAnchorInLandscape = weatherImage.heightAnchor.constraint(equalToConstant: 70)
-    private lazy var weatherImageWidthAnchorInPortrait = weatherImage.widthAnchor.constraint(equalToConstant: 140)
-    private lazy var weatherImageWidthAnchorInLandscape = weatherImage.widthAnchor.constraint(equalToConstant: 70)
+    private lazy var portraitConstraints = [heightAnchor.constraint(equalToConstant: 250),
+                                       weatherImage.heightAnchor.constraint(equalToConstant: 140),
+                                       weatherImage.widthAnchor.constraint(equalToConstant: 140)]
+    private lazy var landscapeConstraints = [heightAnchor.constraint(equalToConstant: 100),
+                                        weatherImage.heightAnchor.constraint(equalToConstant: 70),
+                                        weatherImage.widthAnchor.constraint(equalToConstant: 70)]
     
     // MARK: - Lifecycle
     
@@ -63,20 +62,12 @@ class WeatherInfoView: UIView {
     func switchStateTo(_ state: DeviceOrientation) {
         switch state {
         case .portrait:
-            heightAnchorInPortrait.isActive = true
-            weatherImageHeightAnchorInPortrait.isActive = true
-            weatherImageWidthAnchorInPortrait.isActive = true
-            heightAnchorInLandscape.isActive = false
-            weatherImageHeightAnchorInLandscape.isActive = false
-            weatherImageWidthAnchorInLandscape.isActive = false
+            portraitConstraints.activate()
+            landscapeConstraints.deactivate()
             self.infoContainersStack.axis = .vertical
         case .landscape:
-            heightAnchorInPortrait.isActive = false
-            weatherImageHeightAnchorInPortrait.isActive = false
-            weatherImageWidthAnchorInPortrait.isActive = false
-            heightAnchorInLandscape.isActive = true
-            weatherImageHeightAnchorInLandscape.isActive = true
-            weatherImageWidthAnchorInLandscape.isActive = true
+            portraitConstraints.deactivate()
+            landscapeConstraints.activate()
             self.infoContainersStack.axis = .horizontal
         }
     }

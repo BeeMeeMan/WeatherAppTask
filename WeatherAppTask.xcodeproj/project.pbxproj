@@ -14,6 +14,8 @@
 		8A3BC15828D370DD008AE012 /* WeatherScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3BC15728D370DD008AE012 /* WeatherScrollView.swift */; };
 		8A3BC15A28D395C3008AE012 /* UIScreen+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3BC15928D395C3008AE012 /* UIScreen+Extensions.swift */; };
 		8A3BC15C28D39720008AE012 /* PickOnMapLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3BC15B28D39720008AE012 /* PickOnMapLocationViewController.swift */; };
+		8A3EB1DF28D5EE750008F383 /* OrientationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3EB1DE28D5EE750008F383 /* OrientationManager.swift */; };
+		8A3EB1E228D5EFF80008F383 /* NSLayoutConstraint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3EB1E128D5EFF80008F383 /* NSLayoutConstraint+Extensions.swift */; };
 		8A6B1BF828D2222A001A685B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B1BF728D2222A001A685B /* AppDelegate.swift */; };
 		8A6B1BFA28D2222A001A685B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B1BF928D2222A001A685B /* SceneDelegate.swift */; };
 		8A6B1C0128D2222B001A685B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A6B1C0028D2222B001A685B /* Assets.xcassets */; };
@@ -63,6 +65,8 @@
 		8A3BC15728D370DD008AE012 /* WeatherScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherScrollView.swift; sourceTree = "<group>"; };
 		8A3BC15928D395C3008AE012 /* UIScreen+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Extensions.swift"; sourceTree = "<group>"; };
 		8A3BC15B28D39720008AE012 /* PickOnMapLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickOnMapLocationViewController.swift; sourceTree = "<group>"; };
+		8A3EB1DE28D5EE750008F383 /* OrientationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrientationManager.swift; sourceTree = "<group>"; };
+		8A3EB1E128D5EFF80008F383 /* NSLayoutConstraint+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+Extensions.swift"; sourceTree = "<group>"; };
 		8A6B1BF428D2222A001A685B /* WeatherAppTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherAppTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A6B1BF728D2222A001A685B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8A6B1BF928D2222A001A685B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -198,6 +202,7 @@
 				8A6B1C1428D2299B001A685B /* Extensions */,
 				8A6B1C0028D2222B001A685B /* Assets.xcassets */,
 				8A6B1C0228D2222B001A685B /* LaunchScreen.storyboard */,
+				8A3EB1DE28D5EE750008F383 /* OrientationManager.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -214,6 +219,7 @@
 				8AB8B99328D3CCB500E83A92 /* UIButton+Extensions.swift */,
 				8AB8B99528D3D13E00E83A92 /* UIStackView+Extensions.swift */,
 				8AB8B99728D3D65500E83A92 /* UITablleView+Extensions.swift */,
+				8A3EB1E128D5EFF80008F383 /* NSLayoutConstraint+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -389,6 +395,7 @@
 				8A6B1C2B28D22F7D001A685B /* String+Extensions.swift in Sources */,
 				8A3BC15028D361A4008AE012 /* WeatherDetailView.swift in Sources */,
 				8A3BC15528D363A0008AE012 /* UIImageView+Extensions.swift in Sources */,
+				8A3EB1E228D5EFF80008F383 /* NSLayoutConstraint+Extensions.swift in Sources */,
 				8A6B1C5328D26244001A685B /* WeatherInfoView.swift in Sources */,
 				8A6B1C1628D22A1C001A685B /* AppFlowCoordinator.swift in Sources */,
 				8A6B1BF828D2222A001A685B /* AppDelegate.swift in Sources */,
@@ -414,6 +421,7 @@
 				8A6B1C1828D22A33001A685B /* MainFlowCoordinator.swift in Sources */,
 				8A6B1C0E28D2289D001A685B /* MainWeatherViewController.swift in Sources */,
 				8A6B1C5E28D27127001A685B /* UIView+Anchors.swift in Sources */,
+				8A3EB1DF28D5EE750008F383 /* OrientationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,6 +13,7 @@ private let reuseIdentifier = "WeatherCell"
 class MainWeatherViewController: UIViewController {
     
     // MARK: - Properties
+    
     private var addCityViewModel: AddCityViewModel
     var weatherListVM: WeatherListViewModel
     private var selectedWeatherVM: WeatherViewModel? {
@@ -100,10 +101,10 @@ class MainWeatherViewController: UIViewController {
         tableView.register(WeatherCell.self, forCellReuseIdentifier: reuseIdentifier)
         tableView.delegate = self
         tableView.dataSource = self
-        refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
-        tableView.addSubview(refreshControl)
         tableView.separatorStyle = .none
         tableView.rowHeight = 60
+        tableView.addSubview(refreshControl)
+        refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
     }
     
     private func configureNavigationBar() {
