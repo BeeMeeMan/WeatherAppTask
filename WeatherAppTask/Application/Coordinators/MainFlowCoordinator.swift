@@ -52,7 +52,6 @@ class MainFlowCoordinator: Coordinator {
         return vc
     }
     
-    
     private func goToPickOnMapLocationViewController() {
         rootViewController.pushViewController(pickOnMapLocationViewController(), animated: true)
     }
@@ -71,7 +70,6 @@ class MainFlowCoordinator: Coordinator {
             self.mainWeatherViewController.weatherListVM.setLocation(location)
             self.mainWeatherViewController.weatherListVM.getWeather(completion: { isSuccess in
                 if isSuccess {
-                    print("####GETWEathr")
                     self.mainWeatherViewController.configureViewWithListVM()
                 }
             })

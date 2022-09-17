@@ -16,7 +16,7 @@ class AddCityViewModel: NSObject {
     private let locationManager = CLLocationManager()
     private var searchResults = [MKPlacemark]()
     private var isFirstScreenLoad = true
-    var location: CLLocation?
+    weak var location: CLLocation?
     
     weak var delegate: AddCityViewModelDelegate?
     var handleGoBack: (CLLocation?) -> Void = { location in }
