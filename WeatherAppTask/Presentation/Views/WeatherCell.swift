@@ -37,24 +37,28 @@ class WeatherCell: UITableViewCell {
         selectionStyle = .none
         
         addSubview(newBackgroundView)
-        newBackgroundView.anchor(top: topAnchor,
-                                 bottom: bottomAnchor,
-                                 left: leftAnchor,
-                                 right: rightAnchor,
-                                 paddingTop: 5,
-                                 paddingBottom: 5)
-        newBackgroundView.backgroundColor = .white
+        newBackgroundView
+            .pin(top: topAnchor, padding: 5)
+            .pin(bottom: bottomAnchor, padding: 5)
+            .pin(left: leftAnchor)
+            .pin(right: rightAnchor)
+            .backgroundColor = .white
         
         addSubview(dayLabel)
-        dayLabel.center(by: .yAxis, inView: self)
-        dayLabel.anchor(left: leftAnchor, paddingLeft: 12)
+        dayLabel
+            .center(by: .yAxis, inView: self)
+            .pin(left: leftAnchor, padding: 12)
+            .closeEdit()
         
         addSubview(iconImageView)
-        iconImageView.center(by: .yAxis, inView: self)
-        iconImageView.anchor(right: rightAnchor, paddingRight: 12)
+        iconImageView
+            .center(by: .yAxis, inView: self)
+            .pin(right: rightAnchor, padding: 12)
+            .closeEdit()
+        
         
         addSubview(tempLabel)
-        tempLabel.center(by: .allAxis, inView: self)
+        tempLabel.center(by: .allAxis, inView: self).closeEdit()
         
         layer.shadowColor = UIColor.CustomColor.lightBlue.cgColor
         layer.shadowRadius = 15

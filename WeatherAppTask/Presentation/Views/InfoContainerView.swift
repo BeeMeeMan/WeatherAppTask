@@ -42,7 +42,7 @@ class InfoContainerView: UIView {
         iconImageView.image = UIImage(named: containerType.iconName)
         let stack = UIStackView.hStack(subviews: [iconImageView, label, windImageView], spacing: 4)
         addSubview(stack)
-        stack.pinTo(view: self)
+        stack.pinAll(view: self)
     }
     
     required init?(coder: NSCoder) {

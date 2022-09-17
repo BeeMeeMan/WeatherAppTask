@@ -24,21 +24,26 @@ class WeatherDetailView: UIView {
         backgroundColor = .CustomColor.lightBlue
         
         addSubview(timeLabel)
-        timeLabel.center(by: .xAxis, inView: self)
-        timeLabel.anchor(top: topAnchor, paddingTop: 20)
+        timeLabel
+            .center(by: .xAxis, inView: self)
+            .pin(top: topAnchor, padding: 20)
+            .closeEdit()
         
         addSubview(iconView)
-        iconView.center(by: .allAxis, inView: self)
-//        iconView.anchor(bottom: tempLabel.topAnchor, paddingBottom: 4)
+        iconView
+            .center(by: .allAxis, inView: self)
+            .closeEdit()
         
         addSubview(tempLabel)
-        tempLabel.center(by: .xAxis, inView: self)
-        tempLabel.anchor(top: iconView.bottomAnchor, paddingBottom: 8)
+        tempLabel
+            .center(by: .xAxis, inView: self)
+            .pin(top: iconView.bottomAnchor, padding: 8)
+            .closeEdit()
         
         timeLabel.text = "\(weatherVM.time)"
         tempLabel.text = weatherVM.temp
         iconView.image = UIImage(named: weatherVM.weatherType.iconName)
-        setDimensions(height: 140, width: 60)
+        pinDimentions(height: 140, width: 60).closeEdit()
     }
     
     required init?(coder: NSCoder) {

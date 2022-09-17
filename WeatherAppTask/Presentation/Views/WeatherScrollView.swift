@@ -40,6 +40,6 @@ class WeatherScrollView: UIScrollView {
         
         let stack = UIStackView.hStack(subviews: viewStack, spacing: 12, distribution: .fillEqually)
         addSubview(stack)
-        stack.pinTo(view: self)
+        stack.pinAll(view: self)
     }
 }

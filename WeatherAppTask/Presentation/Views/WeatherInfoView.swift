@@ -8,10 +8,11 @@
 import UIKit
 
 class WeatherInfoView: UIView {
-
+    
     var weatherVM: WeatherViewModel?
     
     private let weatherImage = UIImageView()
+    private let activityIndicator = UIActivityIndicatorView(style: .large)
     private let dateLabel = UILabel.label(withFont: 12, textColor: .white)
     private lazy var infoContainersStack = UIStackView(arrangedSubviews: infoContainers)
     private lazy var infoContainers: [InfoContainerView] = {
@@ -21,7 +22,7 @@ class WeatherInfoView: UIView {
             let container = InfoContainerView(weatherVM: weatherVM, containerType: type)
             infoContainers.append(container)
         }
-
+        
         return infoContainers
     }()
     
@@ -38,7 +39,7 @@ class WeatherInfoView: UIView {
     init(weatherVM: WeatherViewModel?) {
         self.weatherVM = weatherVM
         super.init(frame: .zero)
-       
+        
         configureUI()
     }
     
@@ -56,6 +57,7 @@ class WeatherInfoView: UIView {
         
         weatherImage.image = UIImage(named: weatherVM?.weatherType.iconName ?? "")
         dateLabel.text = viewModel.date
+        activityIndicator.removeFromSuperview()
     }
     
     func switchStateTo(_ state: DeviceOrientation) {
@@ -85,25 +87,33 @@ class WeatherInfoView: UIView {
         backgroundColor = .CustomColor.darkBlue
         
         addSubview(dateLabel)
-        dateLabel.anchor(top: topAnchor,
-                         left: leftAnchor,
-                         right: rightAnchor,
-                         paddingLeft: 12)
-
+        dateLabel
+            .pin(top: topAnchor)
+            .pin(left: leftAnchor, padding: 12)
+            .pin(right: rightAnchor)
+            .closeEdit()
+        
         addSubview(weatherImage)
-        weatherImage.center(by: .yAxis, inView: self)
-        weatherImage.anchor(top: dateLabel.bottomAnchor,
-                            left: leftAnchor,
-                            paddingLeft: 40)
-
+        weatherImage
+            .center(by: .yAxis, inView: self)
+            .pin(top: dateLabel.bottomAnchor)
+            .pin(left: leftAnchor, padding: 40)
+            .closeEdit()
         
         infoContainersStack.spacing = 16
         infoContainersStack.distribution = .fill
         infoContainersStack.axis = .vertical
-       
+        
         addSubview(infoContainersStack)
-        infoContainersStack.center(by: .yAxis, inView: self)
-        infoContainersStack.anchor(left: weatherImage.rightAnchor,
-                                   paddingLeft: 30)
+        infoContainersStack
+            .center(by: .yAxis, inView: self)
+            .pin(left: weatherImage.rightAnchor, padding: 30)
+            .closeEdit()
+        
+        addSubview(activityIndicator)
+        activityIndicator
+            .center(by: .allAxis, inView: self)
+            .pinDimentions(height: 100, width: 100)
+            .startAnimating()
     }
 }

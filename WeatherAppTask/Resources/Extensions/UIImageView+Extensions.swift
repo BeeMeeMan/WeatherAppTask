@@ -10,14 +10,14 @@ import UIKit
 extension UIImageView {
     static func imageView(height: CGFloat, width: CGFloat) -> UIImageView {
         let image = UIImageView()
-        image.setDimensions(height: height, width: width)
+        image.pinDimentions(height: height, width: width).closeEdit()
         
         return image
     }
     
     static func imageView(size: CGSize) -> UIImageView {
         let image = UIImageView()
-        image.setDimensions(height: size.height, width: size.width)
+        image.pinDimentions(height: size.height, width: size.width).closeEdit()
         
         return image
     }

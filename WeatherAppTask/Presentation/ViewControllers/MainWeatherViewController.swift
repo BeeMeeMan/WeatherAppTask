@@ -72,23 +72,28 @@ class MainWeatherViewController: UIViewController {
         weatherInfoView.switchStateTo(UIScreen.getOrientation())
         
         view.addSubview(weatherInfoView)
-        weatherInfoView.center(by: .xAxis, inView: view)
-        weatherInfoView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
-                               left: view.leftAnchor,
-                               right: view.rightAnchor)
-        weatherInfoView.weatherVM = weatherListVM.getWeatherViewModel(at: 0)
+        weatherInfoView
+            .center(by: .xAxis, inView: view)
+            .pin(top: view.safeAreaLayoutGuide.topAnchor)
+            .pin(left: view.leftAnchor)
+            .pin(right: view.rightAnchor)
+            .weatherVM = weatherListVM.getWeatherViewModel(at: 0)
         
         view.addSubview(verticalScrollView)
-        verticalScrollView.anchor(top: weatherInfoView.bottomAnchor,
-                                  left: view.leftAnchor,
-                                  right: view.rightAnchor,
-                                  height: 140)
+        verticalScrollView
+            .pin(top: weatherInfoView.bottomAnchor)
+            .pin(left: view.leftAnchor)
+            .pin(right: view.rightAnchor)
+            .pinDimentions(height: 140)
+            .closeEdit()
         
         view.addSubview(tableView)
-        tableView.anchor(top: verticalScrollView.bottomAnchor,
-                         bottom: view.safeAreaLayoutGuide.bottomAnchor,
-                         left: view.leftAnchor,
-                         right: view.rightAnchor)
+        tableView
+            .pin(top: verticalScrollView.bottomAnchor)
+            .pin(left: view.leftAnchor)
+            .pin(right: view.rightAnchor)
+            .pin(bottom: view.safeAreaLayoutGuide.bottomAnchor)
+            .closeEdit()
     }
     
     private func configureTableView() {
