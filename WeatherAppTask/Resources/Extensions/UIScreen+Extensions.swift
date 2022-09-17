@@ -16,20 +16,11 @@ extension UIScreen {
     static let width = UIScreen.main.bounds.size.width
     static let height = UIScreen.main.bounds.size.height
     
-    
-    static func getOrientation(by traitCollection: UITraitCollection) -> DeviceOrientation {
-        if traitCollection.horizontalSizeClass == .compact && traitCollection.verticalSizeClass == .regular {
-            return .portrait
-        }
-        return .landscape
-    }
-    
-    static func getOrientation() -> DeviceOrientation {
-        if UIScreen.height > UIScreen.width {
+    static func getOrientation1() -> DeviceOrientation {
+        if  UIDevice.current.orientation.isPortrait {
             return .portrait
         } else {
             return .landscape
         }
     }
 }
-

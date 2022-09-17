@@ -27,3 +27,9 @@ enum NetworkConfig {
         }
     }
 }
+
+fileprivate extension String {
+    func escaped() -> String {
+        return self.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? self
+    }
+}

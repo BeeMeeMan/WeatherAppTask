@@ -14,7 +14,7 @@ class WeatherDetailView: UIView {
     private var weatherVM: WeatherViewModel
     private let timeLabel = UILabel.label(withFont: 18, textColor: .white)
     private let tempLabel = UILabel.label(withFont: 20, textColor: .white)
-    private let iconView = UIImageView.imageView(height: 34, width: 34)
+    private let iconView = UIImageView()
     
     // MARK: - Lifecycle
     
@@ -31,6 +31,7 @@ class WeatherDetailView: UIView {
         
         addSubview(iconView)
         iconView
+            .pinDimentions(height: 34, width: 34)
             .center(by: .allAxis, inView: self)
             .closeEdit()
         

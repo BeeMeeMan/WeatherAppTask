@@ -26,12 +26,12 @@ class WeatherInfoView: UIView {
         return infoContainers
     }()
     
-    private lazy var portraitConstraints = [heightAnchor.constraint(equalToConstant: 250),
-                                       weatherImage.heightAnchor.constraint(equalToConstant: 140),
-                                       weatherImage.widthAnchor.constraint(equalToConstant: 140)]
-    private lazy var landscapeConstraints = [heightAnchor.constraint(equalToConstant: 100),
-                                        weatherImage.heightAnchor.constraint(equalToConstant: 70),
-                                        weatherImage.widthAnchor.constraint(equalToConstant: 70)]
+    private lazy var sizeClasses = SizeClass(portrait: [heightAnchor.constraint(equalToConstant: 250),
+                                                        weatherImage.heightAnchor.constraint(equalToConstant: 140),
+                                                        weatherImage.widthAnchor.constraint(equalToConstant: 140)],
+                                             landscape: [heightAnchor.constraint(equalToConstant: 100),
+                                                         weatherImage.heightAnchor.constraint(equalToConstant: 70),
+                                                         weatherImage.widthAnchor.constraint(equalToConstant: 70)])
     
     // MARK: - Lifecycle
     
@@ -60,14 +60,9 @@ class WeatherInfoView: UIView {
     }
     
     func switchStateTo(_ state: DeviceOrientation) {
-        switch state {
-        case .portrait:
-            portraitConstraints.activate()
-            landscapeConstraints.deactivate()
+        sizeClasses.setup(with: state) {
             self.infoContainersStack.axis = .vertical
-        case .landscape:
-            portraitConstraints.deactivate()
-            landscapeConstraints.activate()
+        } landscapeCompletion: {
             self.infoContainersStack.axis = .horizontal
         }
     }

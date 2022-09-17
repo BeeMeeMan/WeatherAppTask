@@ -49,7 +49,7 @@ class MainWeatherViewController: UIViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        weatherInfoView.switchStateTo(UIScreen.getOrientation(by: traitCollection))
+        weatherInfoView.switchStateTo(UIScreen.getOrientation1())
     }
     
     // MARK: - Selectors
@@ -70,7 +70,7 @@ class MainWeatherViewController: UIViewController {
     private func configureUI() {
         configureTableView()
         configureNavigationBar()
-        weatherInfoView.switchStateTo(UIScreen.getOrientation())
+        weatherInfoView.switchStateTo(UIScreen.getOrientation1())
         
         view.addSubview(weatherInfoView)
         weatherInfoView

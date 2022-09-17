@@ -26,7 +26,7 @@ class WeatherCell: UITableViewCell {
     
     private let dayLabel = UILabel.label(withFont: 28)
     private let tempLabel = UILabel.label(withFont: 28)
-    private let iconImageView = UIImageView.imageView(height: 30, width: 30)
+    private let iconImageView = UIImageView()
     private let newBackgroundView = UIView()
     
     // MARK: - Lifecycle
@@ -52,6 +52,7 @@ class WeatherCell: UITableViewCell {
         
         addSubview(iconImageView)
         iconImageView
+            .pinDimentions(height: 30, width: 30)
             .center(by: .yAxis, inView: self)
             .pin(right: rightAnchor, padding: 12)
             .closeEdit()
