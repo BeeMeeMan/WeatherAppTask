@@ -67,6 +67,7 @@ class MainFlowCoordinator: Coordinator {
     private func handle(_ location: CLLocation?) {
         self.location = location
         DispatchQueue.main.async {
+            print(location)
             self.mainWeatherViewController.weatherListVM.setLocation(location)
             self.mainWeatherViewController.weatherListVM.getWeather(completion: { isSuccess in
                 if isSuccess {

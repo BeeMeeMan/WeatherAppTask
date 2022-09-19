@@ -16,7 +16,7 @@ class AddCityViewModel: NSObject {
     private let locationManager = CLLocationManager()
     private var searchResults = [MKPlacemark]()
     private var isFirstScreenLoad = true
-    weak var location: CLLocation?
+    var location: CLLocation?
     
     weak var delegate: AddCityViewModelDelegate?
     var handleGoBack: (CLLocation?) -> Void = { location in }
@@ -109,6 +109,7 @@ extension AddCityViewModel: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse {
+            getLocation()
             locationManager.requestAlwaysAuthorization()
         }
     }
